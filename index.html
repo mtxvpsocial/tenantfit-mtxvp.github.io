@@ -1053,7 +1053,7 @@
     </template>
 
     <script>
-        const baseUrl = `${window.location.origin}`;
+        const baseUrl = "${PROD_API_URL}";
 
         // Store logged-in user info in localStorage for persistence across refreshes
         let currentUser = null;
