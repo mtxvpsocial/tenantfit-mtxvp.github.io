@@ -411,10 +411,10 @@ function updatePropertyStatus(action, id, ownerId, successMessage, errorMessage)
     .finally(hideOverlay);
 }
 
-function deleteProperty(id) {
-    if (!confirm('Are you sure you want to delete this property? This cannot be undone.')) return;
-    updatePropertyStatus('delete', id, currentUser && currentUser.userId, 'Property deleted!', 'Could not delete property.');
-}
+// function deleteProperty(id) {
+//     if (!confirm('Are you sure you want to delete this property? This cannot be undone.')) return;
+//     updatePropertyStatus('delete', id, currentUser && currentUser.userId, 'Property deleted!', 'Could not delete property.');
+// }
 
 function activateProperty(id) {
     updatePropertyStatus('activate', id, currentUser && currentUser.userId, 'Property activated!', 'Could not activate property.');
@@ -469,10 +469,6 @@ function renderProperties(properties) {
                             <i class="bi bi-clipboard"></i>
                             <span class="visually-hidden">Copy Link</span>
                          </button>`;
-            const deleteBtn = `<button class="btn btn-sm btn-outline-danger" title="Delete" onclick="deleteProperty('${prop.id}')">
-                            <i class="bi bi-trash"></i>
-                            <span class="visually-hidden">Delete</span>
-                           </button>`;
             const candidatesLink = `<a href="javascript:void(0)" onclick="showTenantCandidatesScreen('${prop.id}')">${prop.candidatesCount || 0}</a>`;
             const tr = document.createElement('tr');
             tr.innerHTML = `
@@ -488,7 +484,6 @@ function renderProperties(properties) {
                     <div class="d-flex dashboard-actions justify-content-end">
                         ${activateBtn}
                         ${copyBtn}
-                        ${deleteBtn}
                     </div>
                 </td>
             `;
