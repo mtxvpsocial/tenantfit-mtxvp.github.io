@@ -287,7 +287,7 @@ function showAddPropertyScreen(editId = null) {
     document.getElementById('addPropertyScreen').classList.remove('hidden');
     document.getElementById('addPropertyForm').reset();
     document.getElementById('addPropertyForm').classList.remove('was-validated');
-    document.getElementById('propertyFormTitle').textContent = editId ? 'Edit Property' : 'Add New Property';
+    document.getElementById('savePropertyButton').innerHTML = editId ? 'Update' : 'Add';
     document.getElementById('property_id').value = editId || '';
     if (editId) {
         showOverlay();
@@ -493,7 +493,7 @@ function renderProperties(properties) {
 }
 
 function backToTenantCandidatesScreen(){
-    const propertyId = document.getElementById('tenantDetailsScreen').getAttribute('data-property-id');
+    const propertyId = document.getElementById('candidateDetailsScreen').getAttribute('data-property-id');
     showTenantCandidatesScreen(propertyId);
 }
 
@@ -516,14 +516,14 @@ function showTenantCandidatesScreen(propertyId) {
                 table.innerHTML = `
                     <thead>
                         <tr>
-                            <th>Move-In Date</th>
+                            <th>Move-In</th>
                             <th>Occupants</th>
-                            <th class="d-none d-md-table-cell">Employment Status</th>
+                            <th class="d-none d-md-table-cell">Employment</th>
                             <th class="d-none d-lg-table-cell">Profession</th>
-                            <th class="d-none d-lg-table-cell">Gross Income</th>
+                            <th class="d-none d-lg-table-cell">Income</th>
                             <th class="d-none d-md-table-cell">Vehicles</th>
                             <th>Score</th>
-                            <th class="d-none d-md-table-cell">Application Date</th>
+                            <th class="d-none d-md-table-cell">Date</th>
                             <th>Details</th>
                         </tr>
                     </thead>
@@ -544,7 +544,7 @@ function showTenantCandidatesScreen(propertyId) {
                     tds[7].textContent = candidate.applicationDate || '';
                     // Details link
                     const detailsLink = tds[8].querySelector('a');
-                    detailsLink.onclick = () => showTenantDetailsScreen(candidate.id);
+                    detailsLink.onclick = () => showCandidateDetailsScreen(candidate.id);
                     tbody.appendChild(row);
                 });
                 container.appendChild(table);
@@ -561,22 +561,22 @@ function showTenantCandidatesScreen(propertyId) {
     }
 }
 
-function showTenantDetailsScreen(candidateId) {
+function showCandidateDetailsScreen(candidateId) {
     hideAllScreens();
-    document.getElementById('tenantDetailsScreen').classList.remove('hidden');
+    document.getElementById('candidateDetailsScreen').classList.remove('hidden');
 
     showOverlay();
     fetch(`${baseUrl}/get-tenant-candidate-details?id=${encodeURIComponent(candidateId)}`)
         .then(response => response.json())
         .then(data => {
             if (!data.success) {
-                                       showAlert(data.message || 'Failed to load tenant details.', 'danger');
+                showAlert(data.message || 'Failed to load candidate details.', 'danger');
                 return;
             }
 
             const candidate = data.candidate;
-            const content = document.getElementById('tenantDetailsContent');
-            const template = document.getElementById('tenantDetailsTemplate');
+            const content = document.getElementById('candidateDetailsContent');
+            const template = document.getElementById('candidateDetailsTemplate');
             content.innerHTML = '';
             if (template) {
                 const node = template.content.cloneNode(true);
@@ -669,16 +669,16 @@ function showTenantDetailsScreen(candidateId) {
             }
 
             // Store propertyId for back navigation (prefer candidate.propertyId if available)
-            document.getElementById('tenantDetailsScreen').setAttribute('data-property-id', candidate.propertyid);
+            document.getElementById('candidateDetailsScreen').setAttribute('data-property-id', candidate.propertyid);
         })
         .catch(error => {
-            showAlert('Error loading tenant details: ' + error.message, 'danger');
+            showAlert('Error loading candidate details: ' + error.message, 'danger');
         })
         .finally(hideOverlay);
 
     // Update browser history and hash for back/reload support
-    if (history.state?.screen !== 'tenantDetails' || history.state?.candidateId !== candidateId) {
-        history.pushState({ screen: 'tenantDetails', candidateId }, '', `#tenantDetails/${encodeURIComponent(candidateId)}`);
+    if (history.state?.screen !== 'candidateDetails' || history.state?.candidateId !== candidateId) {
+        history.pushState({ screen: 'candidateDetails', candidateId }, '', `#candidateDetails/${encodeURIComponent(candidateId)}`);
     }
 }
 
@@ -756,7 +756,7 @@ function hideAllScreens() {
         'landingScreen', 'loginScreen', 'registerScreen', 'forgotPasswordScreen', 
         'confirmEmailScreen', 'resetPasswordScreen', 'dashboardScreen', 
         'addPropertyScreen', 'publicPropertyScreen', 'tenantCandidatesScreen',
-        'confirmationScreen', 'thankYouScreen', 'tenantDetailsScreen'
+        'confirmationScreen', 'thankYouScreen', 'tenantDetailsScreen', 'candidateDetailsScreen'
     ];
     screens.forEach(screenId => {
         const screen = document.getElementById(screenId);
@@ -811,17 +811,17 @@ function handleScreen(screen) {
             showAddPropertyScreen(propertyId);
             break;
         }
-        case 'tenantDetails': {
+        case 'candidateDetails': {
             // Try to get candidateId from state or hash
             let candidateId = history.state?.candidateId;
             if (!candidateId) {
                 const hash = window.location.hash;
-                // REST-style: #tenantDetails/abc
-                if (hash.startsWith('#tenantDetails/')) {
+                // REST-style: #candidateDetails/abc
+                if (hash.startsWith('#candidateDetails/')) {
                     candidateId = hash.split('/')[1];
                 }
             }
-            if (candidateId) showTenantDetailsScreen(candidateId);
+            if (candidateId) showCandidateDetailsScreen(candidateId);
             else showDashboardScreen();
             break;
         }
@@ -887,10 +887,10 @@ function handleHashOrDefault() {
             showTenantCandidatesScreen(propertyId);
             return;
         }
-    } else if (hash.startsWith('#tenantDetails/')) {
+    } else if (hash.startsWith('#candidateDetails/')) {
         const candidateId = hash.split('/')[1];
         if (candidateId) {
-            showTenantDetailsScreen(candidateId);
+            showCandidateDetailsScreen(candidateId);
             return;
         }
     } else if (hash.startsWith('#dashboard')) {

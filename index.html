@@ -19,7 +19,6 @@
         }
         td, th {
             white-space: normal !important;
-            word-break: break-word;
         }
  
         @media (max-width: 575.98px) {
@@ -87,97 +86,6 @@
             padding: 0.5rem 1rem;
         }
 
-        /* Candidate Form Styling */
-        #applyForm {
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        #applyForm h3 {
-            color: #343a40;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        #applyForm label {
-            font-weight: 500;
-            color: #495057;
-        }
-
-        #applyForm .form-text {
-            font-size: 0.9rem;
-            color: #6c757d;
-        }
-
-        #applyForm .form-label span.text-danger {
-            color: #dc3545;
-            font-weight: bold;
-        }
-
-        #applyForm .form-control,
-        #applyForm .form-select {
-            border: 1px solid #ced4da;
-            border-radius: 4px;
-            transition: border-color 0.3s ease;
-        }
-
-        #applyForm .form-control:focus,
-        #applyForm .form-select:focus {
-            border-color: #80bdff;
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-        }
-
-        #applyForm .invalid-feedback {
-            font-size: 0.85rem;
-            color: #dc3545;
-        }
-
-        #applyForm .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-
-        #applyForm .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #004085;
-        }
-
-        #applyForm .btn-secondary {
-            background-color: #6c757d;
-            border-color: #6c757d;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-
-        #applyForm .btn-secondary:hover {
-            background-color: #5a6268;
-            border-color: #545b62;
-        }
-
-        #applyForm .section-title {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: #343a40;
-            margin-top: 1.5rem;
-            margin-bottom: 1rem;
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 0.5rem;
-        }
-
-        #applyForm .mb-3 {
-            margin-bottom: 1.5rem;
-        }
-
-        #applyForm textarea {
-            resize: none;
-        }
-
-        #applyForm .hidden {
-            display: none;
-        }
-        
         .form-check-label {
             display: inline;
         }
@@ -191,8 +99,6 @@
             background: #fff;
             border-radius: 1rem;
             box-shadow: 0 2px 16px rgba(0,0,0,0.07);
-            padding: 2rem 1.5rem 1.5rem 1.5rem;
-            margin-bottom: 2rem;
         }
         .tenant-details-header {
             text-align: center;
@@ -204,65 +110,9 @@
             margin-bottom: 0.5rem;
             display: inline-block;
         }
-        .details-section {
-            margin-bottom: 2rem;
-            background: #f8f9fa;
-            border-radius: 0.5rem;
-            padding: 1.25rem 1rem 1rem 1rem;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-        }
-        .details-section h3 {
-            font-size: 1.15rem;
-            font-weight: 600;
-            color: #0d6efd;
-            margin-bottom: 1rem;
-            border-bottom: 1px solid #dee2e6;
-            padding-bottom: 0.25rem;
-        }
-        .details-grid {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 0.5rem 1.5rem;
-        }
-        .detail-item {
-            display: contents;
-        }
-        .detail-label {
-            font-weight: 500;
-            color: #495057;
-            padding: 0.5rem 0;
-            text-align: right;
-            border-right: 2px solid #e9ecef;
-            background: #f1f3f5;
-            border-radius: 0.25rem 0 0 0.25rem;
-            min-width: 120px;
-        }
-        .detail-value {
-            padding: 0.5rem 0 0.5rem 1rem;
-            color: #212529;
-            background: #fff;
-            border-radius: 0 0.25rem 0.25rem 0;
-            border-left: 2px solid #e9ecef;
-            min-width: 120px;
-            word-break: break-word;
-        }
         @media (max-width: 600px) {
             .tenant-details-card {
                 padding: 1rem 0.5rem;
-            }
-            .details-section {
-                padding: 1rem 0.5rem 0.5rem 0.5rem;
-            }
-            .details-grid {
-                grid-template-columns: 1fr;
-            }
-            .detail-label, .detail-value {
-                border: none;
-                text-align: left;
-                padding-left: 0;
-            }
-            .detail-value {
-                padding-top: 0;
             }
         }
 
@@ -535,9 +385,10 @@
                         <button class="btn btn-success dashboard-header-btn" onclick="showAddPropertyScreen()">
                             <i class="bi bi-plus-lg"></i> Add New Property
                         </button>
-                        <span id="usageMeter" class="badge bg-info text-dark align-self-start align-self-sm-center mt-2 mt-sm-0">1 of 1 active listings used</span>
+                        <button type="button" class="btn btn-secondary mt-3" onclick="logout()">Log Out</button>
                     </div>
                     <div class="mb-2">
+                        <span id="usageMeter" class="badge bg-info text-dark align-self-start align-self-sm-center mt-2 mt-sm-0">1 of 1 active listings used</span>
                         <small class="text-muted">Want to activate more? <a href="#">Upgrade here</a></small>
                     </div>
                     <div class="table-responsive">
@@ -556,7 +407,6 @@
                             </tbody>
                         </table>
                     </div>
-                    <button type="button" class="btn btn-secondary mt-3" onclick="logout()">Log Out</button>
                 </div>
             </div>
             
@@ -564,331 +414,335 @@
 
         <!-- Public Property Screen -->
         <div id="publicPropertyScreen" class="hidden">
-            <!-- Property Info Section -->
-            <div id="publicPropertyContent" class="card mb-4 border-primary">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="card-title mb-0" id="propertyAddress">Property Address</h4>
-                </div>
-                <div class="card-body">
-                    <p class="card-text" id="propertyDescription">Property description will be displayed here.</p>
-                    <p class="card-text">
-                        <a href="#" target="_blank" id="propertyLink" class="text-decoration-none text-primary">View Listing</a>
-                    </p>
-                    <p class="card-text">
-                        <small class="text-muted">Available: <span id="propertyAvailability">Availability date</span></small>
-                    </p>
+            <div class="min-vh-100 d-flex mt-1 align-items-start justify-content-center">
+                <div class="bg-white rounded-2 shadow shadow-mobile-none p-4 mx-auto col-12 col-lg-8">
+                    <!-- Property Info Section -->
+                    <div id="publicPropertyContent" class="card mb-4 border-primary">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="card-title mb-0" id="propertyAddress">Property Address</h4>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text" id="propertyDescription">Property description will be displayed here.</p>
+                            <p class="card-text">
+                                <a href="#" target="_blank" id="propertyLink" class="text-decoration-none text-primary">View Listing</a>
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">Available: <span id="propertyAvailability">Availability date</span></small>
+                            </p>
+                        </div>
+                    </div>
+
+                    <form id="applyForm" novalidate>
+                        <h3 class="fw-bold text-dark mb-3">Rental Application Form</h3>
+                        <p>We’ll ask a few basic questions to help the landlord understand if you’re a good fit for the rental.</p>
+                        <p><strong>Please do not enter any of the following:</strong></p>
+                        <ul>
+                            <li>Full or partial names</li>
+                            <li>Specific home or work addresses</li>
+                            <li>Social Insurance Number (SIN) or passport number</li>
+                            <li>Credit card or banking information</li>
+                        </ul>
+                        <p class="text-muted">This form is anonymous and lightweight. While we take reasonable steps to protect your data, we intentionally avoid collecting or storing sensitive personal information at this stage.</p>
+
+                        <!-- Section: Basic Information -->
+                        <div class="fs-5 fw-bold text-primary border-bottom pb-2 mb-3 mt-4">Contact</div>
+                        <div class="mb-3">
+                            <label for="applicantEmail" class="form-label">Email Address <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="applicantEmail" required>
+                            <div class="form-text">Your email is not visible to the landlord and will be used for automated communication regarding your application status.</div>
+                            <div class="invalid-feedback">Please provide a valid email address.</div>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input type="checkbox" class="form-check-input" id="consentContact" required>
+                            <label for="consentContact" class="form-check-label">I consent to being contacted at the email address provided regarding my rental application.</label>
+                            <div class="invalid-feedback">You must consent to being contacted.</div>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input type="checkbox" class="form-check-input" id="consentNews">
+                            <label for="consentNews" class="form-check-label">I consent to receive occasional communication about news and new features of this website.</label>
+                        </div>
+
+                        <div class="fs-5 fw-bold text-primary border-bottom pb-2 mb-3 mt-4">Lifestyle</div>
+                        <div class="mb-3">
+                            <label for="moveInDate" class="form-label">When are you planning to move in? <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="moveInDate" required>
+                            <div class="invalid-feedback">Please provide a valid move-in date. It cannot be in the past.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="occupants" class="form-label">How many people will live in the unit? <span class="text-danger">*</span></label>
+                            <select class="form-select" id="occupants" required>
+                                <option value="">Select...</option>
+                                <option value="Just me">Just me</option>
+                                <option value="2 people">2 people</option>
+                                <option value="3 people">3 people</option>
+                                <option value="4 people">4 people</option>
+                                <option value="5 or more people">5 or more people</option>
+                            </select>
+                            <div class="invalid-feedback">Please select the number of occupants.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="smokers" class="form-label">Do you or anyone in your household smoke? <span class="text-danger">*</span></label>
+                            <select class="form-select" id="smokers" required>
+                                <option value="">Select...</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                            <div class="invalid-feedback">Please specify if there are smokers in the household.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pets" class="form-label">Do you have any pets? <span class="text-danger">*</span></label>
+                            <select class="form-select" id="pets" required>
+                                <option value="">Select...</option>
+                                <option value="No">No</option>
+                                <option value="Yes — Small">Yes — Small (e.g., cat, small dog, fish)</option>
+                                <option value="Yes — Large">Yes — Large (e.g., large dog)</option>
+                                <option value="Yes — Exotic">Yes — Exotic (e.g., rat, rabbit, reptile)</option>
+                            </select>
+                            <div class="invalid-feedback">Please specify if you have pets.</div>
+                        </div>
+                        <div class="mb-3 hidden" id="petDetailsContainer">
+                            <label for="petDetails" class="form-label">Please describe number and type of your pets: <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="petDetails" rows="3" required></textarea>
+                            <div class="invalid-feedback">Please provide details about your pets.</div>
+                        </div>
+
+                        <!-- Section: Rental history -->
+                        <div class="mb-3">
+                            <label for="housingSituation" class="form-label">What is your current housing situation? <span class="text-danger">*</span></label>
+                            <select class="form-select" id="housingSituation" required>
+                                <option value="">Select...</option>
+                                <option value="Renting">Renting</option>
+                                <option value="Living with family">Living with family</option>
+                                <option value="Staying with friends">Staying with friends</option>
+                                <option value="Own my home">Own my home</option>
+                                <option value="Temporary housing">Temporary housing (e.g. sublet, hotel)</option>
+                                <option value="Other">Other (please specify)</option>
+                            </select>
+                            <div class="invalid-feedback">Please select your current housing situation.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="residenceDuration" class="form-label">How long have you lived at your current residence? <span class="text-danger">*</span></label>
+                            <select class="form-select" id="residenceDuration" required>
+                                <option value="">Select...</option>
+                                <option value="Less than 6 months">Less than 6 months</option>
+                                <option value="6–12 months">6–12 months</option>
+                                <option value="1–3 years">1–3 years</option>
+                                <option value="3-5 years">3-5 years</option>
+                                <option value="5-10 years">5-10 years</option>
+                                <option value="Over 10 years">Over 10 years</option>
+                            </select>
+                            <div class="invalid-feedback">Please select how long you have lived at your current residence.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reasonForMoving" class="form-label">Why are you moving? <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="reasonForMoving" rows="3" required></textarea>
+                            <div class="invalid-feedback">Please provide details about your move.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="privateLandlord" class="form-label">Have you rented from a private landlord before? <span class="text-danger">*</span></label>
+                            <select class="form-select" id="privateLandlord" required>
+                                <option value="">Select...</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No (first-time renter)">No (first-time renter)</option>
+                            </select>
+                            <div class="invalid-feedback">Please specify if you have rented from a private landlord before.</div>
+                        </div>
+
+                        <!-- Sub-section: Rental History Details -->
+                        <div id="rentalHistoryDetails" class="hidden">
+                            <div class="mb-3">
+                                <label for="rentalUnits" class="form-label">How many rental units have you lived in within the past 5 years? <span class="text-danger">*</span></label>
+                                <select class="form-select" id="rentalUnits" required>
+                                    <option value="">Select...</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="More than 5">More than 5</option>
+                                </select>
+                                <div class="invalid-feedback">Please select the number of rental units.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="rentDifficulty" class="form-label">Have you ever had difficulty paying rent on time in the past 2 years? <span class="text-danger">*</span></label>
+                                <select class="form-select" id="rentDifficulty" required>
+                                    <option value="">Select...</option>
+                                    <option value="No">No</option>
+                                    <option value="Yes">Yes</option>
+                                </select>
+                                <div class="invalid-feedback">Please specify if you have had difficulty paying rent.</div>
+                            </div>
+                            <div class="mb-3" id="rentDifficultyDetailsContainer" style="display: none;">
+                                <label for="rentDifficultyDetails" class="form-label">Please briefly explain: <span class="text-danger">*</span></label>
+                                <textarea class="form-control" id="rentDifficultyDetails" rows="3" required></textarea>
+                                <div class="invalid-feedback">Please provide details about your rent difficulty.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="tenancyNotice" class="form-label">Have you ever received a formal notice from a landlord to end a tenancy? <span class="text-danger">*</span></label>
+                                <select class="form-select" id="tenancyNotice" required>
+                                    <option value="">Select...</option>
+                                    <option value="No">No</option>
+                                    <option value="Yes">Yes</option>
+                                </select>
+                                <div class="invalid-feedback">Please specify if you have received a formal notice.</div>
+                            </div>
+                            <div class="mb-3" id="tenancyNoticeDetailsContainer" style="display: none;">
+                                <label for="tenancyNoticeDetails" class="form-label">Please briefly explain: <span class="text-danger">*</span></label>
+                                <textarea class="form-control" id="tenancyNoticeDetails" rows="3" required></textarea>
+                                <div class="invalid-feedback">Please provide details about the notice.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="rentalDispute" class="form-label">Have you ever been involved in a rental dispute that required mediation, tribunal, or legal action? <span class="text-danger">*</span></label>
+                                <select class="form-select" id="rentalDispute" required>
+                                    <option value="">Select...</option>
+                                    <option value="No">No</option>
+                                    <option value="Yes">Yes</option>
+                                </select>
+                                <div class="invalid-feedback">Please specify if you have been involved in a rental dispute.</div>
+                            </div>
+                            <div class="mb-3" id="rentalDisputeDetailsContainer" style="display: none;">
+                                <label for="rentalDisputeDetails" class="form-label">Please briefly explain: <span class="text-danger">*</span></label>
+                                <textarea class="form-control" id="rentalDisputeDetails" rows="3" required></textarea>
+                                <div class="invalid-feedback">Please provide details about the dispute.</div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="businessActivity" class="form-label">Do you plan to operate any business or commercial activity from the rental property? <span class="text-danger">*</span></label>
+                            <select class="form-select" id="businessActivity" required>
+                                <option value="">Select...</option>
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                            <div class="invalid-feedback">Please specify if you plan to operate a business or commercial activity.</div>
+                        </div>
+                        <div class="mb-3" id="businessActivityDetailsContainer" style="display: none;">
+                            <label for="businessActivityDetails" class="form-label">Please briefly explain: <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="businessActivityDetails" rows="3" required></textarea>
+                            <div class="invalid-feedback">Please provide details about your business activity.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="vehicles" class="form-label">How many vehicles do you plan to park at the property? <span class="text-danger">*</span></label>
+                            <select class="form-select" id="vehicles" required>
+                                <option value="">Select...</option>
+                                <option value="None">None</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="More than 4">More than 4</option>
+                            </select>
+                            <div class="invalid-feedback">Please specify the number of vehicles you plan to park.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="specialVehicles" class="form-label">Do you own any vehicles that require special storage or parking (e.g., motorcycle, boat, RV, trailer)?</label>
+                            <select class="form-select" id="specialVehicles" required>
+                                <option value="">Select...</option>
+                                <option value="None">None</option>
+                                <option value="Yes — Motorcycle">Yes — Motorcycle</option>
+                                <option value="Yes — Boat">Yes — Boat</option>
+                                <option value="Yes — RV or Trailer">Yes — RV or Trailer</option>
+                                <option value="Yes — Other">Yes — Other</option>
+                            </select>
+                            <div class="invalid-feedback">Please specify if you own any special vehicles.</div>
+                        </div>
+                        <div class="mb-3" id="specialVehiclesDetailsContainer" style="display: none;">
+                            <label for="specialVehiclesDetails" class="form-label">Please briefly explain: <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="specialVehiclesDetails" rows="3" required></textarea>
+                            <div class="invalid-feedback">Please provide details about your special vehicles.</div>
+                        </div>
+                        <div class="section-title">Financials</div>
+                        <div class="mb-3">
+                            <label for="grossIncome" class="form-label">What is your approximate gross monthly income? <span class="text-danger">*</span></label>
+                            <select class="form-select" id="grossIncome" required>
+                                <option value="">Select...</option>
+                                <option value="Under $1000">Under $1000</option>
+                                <option value="$1000 - $2000">$1000 - $2000</option>
+                                <option value="$2000 - $3000">$2000 - $3000</option>
+                                <option value="$3000 - $4000">$3000 - $4000</option>
+                                <option value="$5000 - $6000">$5000 - $6000</option>
+                                <option value="$7000 - $8000">$7000 - $8000</option>
+                                <option value="$8000 - $9000">$8000 - $9000</option>
+                                <option value="$9000 - $10000">$9000 - $10000</option>
+                                <option value="Over $10000">Over $10000</option>
+                            </select>
+                            <div class="invalid-feedback">Please select your gross monthly income.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="employmentStatus" class="form-label">What is your current employment status? <span class="text-danger">*</span></label>
+                            <select class="form-select" id="employmentStatus" required>
+                                <option value="">Select...</option>
+                                <option value="Employed Full-Time">Employed Full-Time</option>
+                                <option value="Employed Part-Time">Employed Part-Time</option>
+                                <option value="Self-Employed">Self-Employed</option>
+                                <option value="Unemployed">Unemployed</option>
+                                <option value="Retired">Retired</option>
+                                <option value="Student">Student</option>
+                            </select>
+                            <div class="invalid-feedback">Please select your employment status.</div>
+                        </div>
+
+                        <!-- Sub-section: Employment details -->
+                        <div id="employmentDetails" style="display: none;">
+                            <div class="mb-3">
+                                <label for="profession" class="form-label">What is your current profession, field of work, or study? <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="profession" required>
+                                <div class="invalid-feedback">Please provide your profession or field of work.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="employmentDuration" class="form-label">How long have you been with your current employer (or running your business)? <span class="text-danger">*</span></label>
+                                <select class="form-select" id="employmentDuration" required>
+                                    <option value="">Select...</option>
+                                    <option value="Less than 6 months">Less than 6 months</option>
+                                    <option value="6–12 months">6–12 months</option>
+                                    <option value="1–3 years">1–3 years</option>
+                                    <option value="3-5 years">3-5 years</option>
+                                    <option value="5-10 years">5-10 years</option>
+                                    <option value="Over 10 years">Over 10 years</option>
+                                </select>
+                                <div class="invalid-feedback">Please select the duration of your employment.</div>
+                            </div>
+                        </div>
+
+                        <div class="section-title">Summary</div>
+                        <div class="mb-3">
+                            <label for="additionalInfo" class="form-label">Is there anything else you would like to share that might support your application?</label>
+                            <textarea class="form-control" id="additionalInfo" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="creditConsent" class="form-label">Do you consent to a credit, public records, or background check if requested at a later stage in the process? <span class="text-danger">*</span></label>
+                            <select class="form-select" id="creditConsent" required>
+                                <option value="">Select...</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                            <div class="form-text">Your response helps the landlord understand how you'd prefer to proceed and may affect the application, depending on the landlord’s screening requirements.</div>
+                            <div class="invalid-feedback">Please specify your consent preference.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="checkbox" id="declaration1" required>
+                            <label for="declaration1" class="form-check-label">I declare that the information I provided is true and complete to the best of my knowledge.</label>
+                            <div class="invalid-feedback">You must agree to this declaration.</div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="checkbox" id="declaration2" required>
+                            <label for="declaration2" class="form-check-label">I understand that providing false information may result in my application being declined.</label>
+                            <div class="invalid-feedback">You must agree to this declaration.</div>
+                        </div>
+
+                        <div id="applyFormErrors" class="text-danger mb-3 hidden"></div>
+                        <button type="button" class="btn btn-primary" onclick="submitApplication()">Submit Application</button>
+                    </form>
                 </div>
             </div>
-
-            <form id="applyForm" novalidate class="mt-4">
-                <h3>Rental Application Form</h3>
-                <p>We’ll ask a few basic questions to help the landlord understand if you’re a good fit for the rental.</p>
-                <p><strong>Please do not enter any of the following:</strong></p>
-                <ul>
-                    <li>Full or partial names</li>
-                    <li>Specific home or work addresses</li>
-                    <li>Social Insurance Number (SIN) or passport number</li>
-                    <li>Credit card or banking information</li>
-                </ul>
-                <p class="text-muted">This form is anonymous and lightweight. While we take reasonable steps to protect your data, we intentionally avoid collecting or storing sensitive personal information at this stage.</p>
-
-                <!-- Section: Basic Information -->
-                <div class="section-title">Contact</div>
-                <div class="mb-3">
-                    <label for="applicantEmail" class="form-label">Email Address <span class="text-danger">*</span></label>
-                    <input type="email" class="form-control" id="applicantEmail" required>
-                    <div class="form-text">Your email is not visible to the landlord and will be used for automated communication regarding your application status.</div>
-                    <div class="invalid-feedback">Please provide a valid email address.</div>
-                </div>
-                <div class="mb-3">
-                    <input type="checkbox" id="consentContact" required>
-                    <label for="consentContact" class="form-check-label">I consent to being contacted at the email address provided regarding my rental application.</label>
-                    <div class="invalid-feedback">You must consent to being contacted.</div>
-                </div>
-                <div class="mb-3">
-                    <input type="checkbox" id="consentNews">
-                    <label for="consentNews" class="form-check-label">I consent to receive occasional communication about news and new features of this website.</label>
-                </div>
-
-                <div class="section-title">Lifestyle</div>
-                <div class="mb-3">
-                    <label for="moveInDate" class="form-label">When are you planning to move in? <span class="text-danger">*</span></label>
-                    <input type="date" class="form-control" id="moveInDate" required>
-                    <div class="invalid-feedback">Please provide a valid move-in date. It cannot be in the past.</div>
-                </div>
-                <div class="mb-3">
-                    <label for="occupants" class="form-label">How many people will live in the unit? <span class="text-danger">*</span></label>
-                    <select class="form-select" id="occupants" required>
-                        <option value="">Select...</option>
-                        <option value="Just me">Just me</option>
-                        <option value="2 people">2 people</option>
-                        <option value="3 people">3 people</option>
-                        <option value="4 people">4 people</option>
-                        <option value="5 or more people">5 or more people</option>
-                    </select>
-                    <div class="invalid-feedback">Please select the number of occupants.</div>
-                </div>
-                <div class="mb-3">
-                    <label for="smokers" class="form-label">Do you or anyone in your household smoke? <span class="text-danger">*</span></label>
-                    <select class="form-select" id="smokers" required>
-                        <option value="">Select...</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select>
-                    <div class="invalid-feedback">Please specify if there are smokers in the household.</div>
-                </div>
-                <div class="mb-3">
-                    <label for="pets" class="form-label">Do you have any pets? <span class="text-danger">*</span></label>
-                    <select class="form-select" id="pets" required>
-                        <option value="">Select...</option>
-                        <option value="No">No</option>
-                        <option value="Yes — Small">Yes — Small (e.g., cat, small dog, fish)</option>
-                        <option value="Yes — Large">Yes — Large (e.g., large dog)</option>
-                        <option value="Yes — Exotic">Yes — Exotic (e.g., rat, rabbit, reptile)</option>
-                    </select>
-                    <div class="invalid-feedback">Please specify if you have pets.</div>
-                </div>
-                <div class="mb-3 hidden" id="petDetailsContainer">
-                    <label for="petDetails" class="form-label">Please describe number and type of your pets: <span class="text-danger">*</span></label>
-                    <textarea class="form-control" id="petDetails" rows="3" required></textarea>
-                    <div class="invalid-feedback">Please provide details about your pets.</div>
-                </div>
-
-                <!-- Section: Rental history -->
-                <div class="mb-3">
-                    <label for="housingSituation" class="form-label">What is your current housing situation? <span class="text-danger">*</span></label>
-                    <select class="form-select" id="housingSituation" required>
-                        <option value="">Select...</option>
-                        <option value="Renting">Renting</option>
-                        <option value="Living with family">Living with family</option>
-                        <option value="Staying with friends">Staying with friends</option>
-                        <option value="Own my home">Own my home</option>
-                        <option value="Temporary housing">Temporary housing (e.g. sublet, hotel)</option>
-                        <option value="Other">Other (please specify)</option>
-                    </select>
-                    <div class="invalid-feedback">Please select your current housing situation.</div>
-                </div>
-                <div class="mb-3">
-                    <label for="residenceDuration" class="form-label">How long have you lived at your current residence? <span class="text-danger">*</span></label>
-                    <select class="form-select" id="residenceDuration" required>
-                        <option value="">Select...</option>
-                        <option value="Less than 6 months">Less than 6 months</option>
-                        <option value="6–12 months">6–12 months</option>
-                        <option value="1–3 years">1–3 years</option>
-                        <option value="3-5 years">3-5 years</option>
-                        <option value="5-10 years">5-10 years</option>
-                        <option value="Over 10 years">Over 10 years</option>
-                    </select>
-                    <div class="invalid-feedback">Please select how long you have lived at your current residence.</div>
-                </div>
-                <div class="mb-3">
-                    <label for="reasonForMoving" class="form-label">Why are you moving? <span class="text-danger">*</span></label>
-                    <textarea class="form-control" id="reasonForMoving" rows="3" required></textarea>
-                    <div class="invalid-feedback">Please provide details about your move.</div>
-                </div>
-                <div class="mb-3">
-                    <label for="privateLandlord" class="form-label">Have you rented from a private landlord before? <span class="text-danger">*</span></label>
-                    <select class="form-select" id="privateLandlord" required>
-                        <option value="">Select...</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No (first-time renter)">No (first-time renter)</option>
-                    </select>
-                    <div class="invalid-feedback">Please specify if you have rented from a private landlord before.</div>
-                </div>
-
-                <!-- Sub-section: Rental History Details -->
-                <div id="rentalHistoryDetails" class="hidden">
-                    <div class="mb-3">
-                        <label for="rentalUnits" class="form-label">How many rental units have you lived in within the past 5 years? <span class="text-danger">*</span></label>
-                        <select class="form-select" id="rentalUnits" required>
-                            <option value="">Select...</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="More than 5">More than 5</option>
-                        </select>
-                        <div class="invalid-feedback">Please select the number of rental units.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="rentDifficulty" class="form-label">Have you ever had difficulty paying rent on time in the past 2 years? <span class="text-danger">*</span></label>
-                        <select class="form-select" id="rentDifficulty" required>
-                            <option value="">Select...</option>
-                            <option value="No">No</option>
-                            <option value="Yes">Yes</option>
-                        </select>
-                        <div class="invalid-feedback">Please specify if you have had difficulty paying rent.</div>
-                    </div>
-                    <div class="mb-3" id="rentDifficultyDetailsContainer" style="display: none;">
-                        <label for="rentDifficultyDetails" class="form-label">Please briefly explain: <span class="text-danger">*</span></label>
-                        <textarea class="form-control" id="rentDifficultyDetails" rows="3" required></textarea>
-                        <div class="invalid-feedback">Please provide details about your rent difficulty.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="tenancyNotice" class="form-label">Have you ever received a formal notice from a landlord to end a tenancy? <span class="text-danger">*</span></label>
-                        <select class="form-select" id="tenancyNotice" required>
-                            <option value="">Select...</option>
-                            <option value="No">No</option>
-                            <option value="Yes">Yes</option>
-                        </select>
-                        <div class="invalid-feedback">Please specify if you have received a formal notice.</div>
-                    </div>
-                    <div class="mb-3" id="tenancyNoticeDetailsContainer" style="display: none;">
-                        <label for="tenancyNoticeDetails" class="form-label">Please briefly explain: <span class="text-danger">*</span></label>
-                        <textarea class="form-control" id="tenancyNoticeDetails" rows="3" required></textarea>
-                        <div class="invalid-feedback">Please provide details about the notice.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="rentalDispute" class="form-label">Have you ever been involved in a rental dispute that required mediation, tribunal, or legal action? <span class="text-danger">*</span></label>
-                        <select class="form-select" id="rentalDispute" required>
-                            <option value="">Select...</option>
-                            <option value="No">No</option>
-                            <option value="Yes">Yes</option>
-                        </select>
-                        <div class="invalid-feedback">Please specify if you have been involved in a rental dispute.</div>
-                    </div>
-                    <div class="mb-3" id="rentalDisputeDetailsContainer" style="display: none;">
-                        <label for="rentalDisputeDetails" class="form-label">Please briefly explain: <span class="text-danger">*</span></label>
-                        <textarea class="form-control" id="rentalDisputeDetails" rows="3" required></textarea>
-                        <div class="invalid-feedback">Please provide details about the dispute.</div>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="businessActivity" class="form-label">Do you plan to operate any business or commercial activity from the rental property? <span class="text-danger">*</span></label>
-                    <select class="form-select" id="businessActivity" required>
-                        <option value="">Select...</option>
-                        <option value="No">No</option>
-                        <option value="Yes">Yes</option>
-                    </select>
-                    <div class="invalid-feedback">Please specify if you plan to operate a business or commercial activity.</div>
-                </div>
-                <div class="mb-3" id="businessActivityDetailsContainer" style="display: none;">
-                    <label for="businessActivityDetails" class="form-label">Please briefly explain: <span class="text-danger">*</span></label>
-                    <textarea class="form-control" id="businessActivityDetails" rows="3" required></textarea>
-                    <div class="invalid-feedback">Please provide details about your business activity.</div>
-                </div>
-                <div class="mb-3">
-                    <label for="vehicles" class="form-label">How many vehicles do you plan to park at the property? <span class="text-danger">*</span></label>
-                    <select class="form-select" id="vehicles" required>
-                        <option value="">Select...</option>
-                        <option value="None">None</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="More than 4">More than 4</option>
-                    </select>
-                    <div class="invalid-feedback">Please specify the number of vehicles you plan to park.</div>
-                </div>
-                <div class="mb-3">
-                    <label for="specialVehicles" class="form-label">Do you own any vehicles that require special storage or parking (e.g., motorcycle, boat, RV, trailer)?</label>
-                    <select class="form-select" id="specialVehicles" required>
-                        <option value="">Select...</option>
-                        <option value="None">None</option>
-                        <option value="Yes — Motorcycle">Yes — Motorcycle</option>
-                        <option value="Yes — Boat">Yes — Boat</option>
-                        <option value="Yes — RV or Trailer">Yes — RV or Trailer</option>
-                        <option value="Yes — Other">Yes — Other</option>
-                    </select>
-                    <div class="invalid-feedback">Please specify if you own any special vehicles.</div>
-                </div>
-                <div class="mb-3" id="specialVehiclesDetailsContainer" style="display: none;">
-                    <label for="specialVehiclesDetails" class="form-label">Please briefly explain: <span class="text-danger">*</span></label>
-                    <textarea class="form-control" id="specialVehiclesDetails" rows="3" required></textarea>
-                    <div class="invalid-feedback">Please provide details about your special vehicles.</div>
-                </div>
-                <div class="section-title">Financials</div>
-                <div class="mb-3">
-                    <label for="grossIncome" class="form-label">What is your approximate gross monthly income? <span class="text-danger">*</span></label>
-                    <select class="form-select" id="grossIncome" required>
-                        <option value="">Select...</option>
-                        <option value="Under $1000">Under $1000</option>
-                        <option value="$1000 - $2000">$1000 - $2000</option>
-                        <option value="$2000 - $3000">$2000 - $3000</option>
-                        <option value="$3000 - $4000">$3000 - $4000</option>
-                        <option value="$5000 - $6000">$5000 - $6000</option>
-                        <option value="$7000 - $8000">$7000 - $8000</option>
-                        <option value="$8000 - $9000">$8000 - $9000</option>
-                        <option value="$9000 - $10000">$9000 - $10000</option>
-                        <option value="Over $10000">Over $10000</option>
-                    </select>
-                    <div class="invalid-feedback">Please select your gross monthly income.</div>
-                </div>
-                <div class="mb-3">
-                    <label for="employmentStatus" class="form-label">What is your current employment status? <span class="text-danger">*</span></label>
-                    <select class="form-select" id="employmentStatus" required>
-                        <option value="">Select...</option>
-                        <option value="Employed Full-Time">Employed Full-Time</option>
-                        <option value="Employed Part-Time">Employed Part-Time</option>
-                        <option value="Self-Employed">Self-Employed</option>
-                        <option value="Unemployed">Unemployed</option>
-                        <option value="Retired">Retired</option>
-                        <option value="Student">Student</option>
-                    </select>
-                    <div class="invalid-feedback">Please select your employment status.</div>
-                </div>
-
-                <!-- Sub-section: Employment details -->
-                <div id="employmentDetails" style="display: none;">
-                    <div class="mb-3">
-                        <label for="profession" class="form-label">What is your current profession, field of work, or study? <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="profession" required>
-                        <div class="invalid-feedback">Please provide your profession or field of work.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="employmentDuration" class="form-label">How long have you been with your current employer (or running your business)? <span class="text-danger">*</span></label>
-                        <select class="form-select" id="employmentDuration" required>
-                            <option value="">Select...</option>
-                            <option value="Less than 6 months">Less than 6 months</option>
-                            <option value="6–12 months">6–12 months</option>
-                            <option value="1–3 years">1–3 years</option>
-                            <option value="3-5 years">3-5 years</option>
-                            <option value="5-10 years">5-10 years</option>
-                            <option value="Over 10 years">Over 10 years</option>
-                        </select>
-                        <div class="invalid-feedback">Please select the duration of your employment.</div>
-                    </div>
-                </div>
-
-                <div class="section-title">Summary</div>
-                <div class="mb-3">
-                    <label for="additionalInfo" class="form-label">Is there anything else you would like to share that might support your application?</label>
-                    <textarea class="form-control" id="additionalInfo" rows="3"></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="creditConsent" class="form-label">Do you consent to a credit, public records, or background check if requested at a later stage in the process? <span class="text-danger">*</span></label>
-                    <select class="form-select" id="creditConsent" required>
-                        <option value="">Select...</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select>
-                    <div class="form-text">Your response helps the landlord understand how you'd prefer to proceed and may affect the application, depending on the landlord’s screening requirements.</div>
-                    <div class="invalid-feedback">Please specify your consent preference.</div>
-                </div>
-
-                <div class="mb-3">
-                    <input type="checkbox" id="declaration1" required>
-                    <label for="declaration1" class="form-check-label">I declare that the information I provided is true and complete to the best of my knowledge.</label>
-                    <div class="invalid-feedback">You must agree to this declaration.</div>
-                </div>
-                <div class="mb-3">
-                    <input type="checkbox" id="declaration2" required>
-                    <label for="declaration2" class="form-check-label">I understand that providing false information may result in my application being declined.</label>
-                    <div class="invalid-feedback">You must agree to this declaration.</div>
-                </div>
-
-                <div id="applyFormErrors" class="text-danger mb-3 hidden"></div>
-                <button type="button" class="btn btn-primary" onclick="submitApplication()">Submit Application</button>
-            </form>
         </div>
 
         <!-- Add/Edit Property Screen -->
         <div id="addPropertyScreen" class="hidden">
             <div class="min-vh-100 d-flex mt-1 align-items-start justify-content-center">
                 <div class="bg-white rounded-2 shadow shadow-mobile-none p-4 mx-auto col-12 col-lg-8">
-                    <h2 id="propertyFormTitle">Add New Property</h2>
+                    <!-- <h2 id="propertyFormTitle">Add New Property</h2> -->
                     <form id="addPropertyForm" novalidate>
                         <input type="hidden" id="property_id">
                         <div class="mb-3">
@@ -916,7 +770,7 @@
                             <input type="number" class="form-control" id="property_rent" required>
                             <div class="invalid-feedback">Please provide the rent amount.</div>
                         </div>
-                        <button type="button" class="btn btn-primary" onclick="saveProperty()">Save</button>
+                        <button type="button" class="btn btn-primary" id="savePropertyButton" onclick="saveProperty()">Save</button>
                         <button type="button" class="btn btn-secondary" onclick="showDashboardScreen()">Cancel</button>
                     </form>
                 </div>
@@ -927,10 +781,13 @@
         <div id="tenantCandidatesScreen" class="hidden">
             <div class="min-vh-100 d-flex mt-1 align-items-start justify-content-center">
                 <div class="bg-white rounded-2 shadow shadow-mobile-none p-4 mx-auto col-12 col-lg-8">
-                    <h2 class="mb-4">Tenant Candidates</h2>
+                    <nav aria-label="breadcrumb" class="mb-2">
+                        <ol class="breadcrumb small">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="showDashboardScreen()">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Tenant Candidates</li>
+                        </ol>
+                    </nav>
                     <div id="tenantCandidatesContent" class="mt-4"></div>
-                    <button type="button" class="btn btn-secondary mt-3" onclick="showDashboardScreen()">Back to Dashboard</button>
-
                 </div>
             </div>
         </div>
@@ -952,15 +809,18 @@
             </div>
         </div>
 
-        <!-- Tenant Details Screen -->
-        <div id="tenantDetailsScreen" class="hidden">
+        <!-- Candidate Details Screen -->
+        <div id="candidateDetailsScreen" class="hidden">
             <div class="min-vh-100 d-flex mt-1 align-items-start justify-content-center">
                 <div class="bg-white rounded-2 shadow shadow-mobile-none p-4 mx-auto col-12 col-lg-8">
-                    <h2 class="mb-4 px-4 pt-4">Tenant Details</h2>
-                    <div id="tenantDetailsContent" class="mt-4 px-4"></div>
-                    <div class="text-center px-4 pb-4">
-                        <button type="button" class="btn btn-secondary mt-3" onclick="backToTenantCandidatesScreen()">Back to Candidates</button>
-                    </div>
+                    <nav aria-label="breadcrumb" class="mb-2">
+                        <ol class="breadcrumb small">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="showDashboardScreen()">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="backToTenantCandidatesScreen()">Tenant Candidates</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Candidate Details</li>
+                        </ol>
+                    </nav>
+                    <div id="candidateDetailsContent" class="mt-4"></div>
                 </div>
             </div>
         </div>
@@ -973,163 +833,163 @@
         </div>
     </div>
 
-    <template id="tenantDetailsTemplate">
+    <template id="candidateDetailsTemplate">
         <div class="tenant-details-card shadow-none border-0 px-0">
-            <div class="tenant-details-header">
-                <span id="candidateScoreBadge" class="badge">
-                    Score: <span class="score-value"></span>
-                </span>
-            </div>
-            <div class="details-section">
-                <h3>Application Summary</h3>
-                <div class="details-grid">
-                    <div class="detail-item">
-                        <div class="detail-label">Application Date</div>
-                        <div class="detail-value" data-field="applicationDate"></div>
+            <div class="my-4">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h4>Application Summary</h4>
+                    <span id="candidateScoreBadge" class="badge">
+                        Score: <span class="score-value"></span>
+                    </span>
+                </div>
+                <div class="container-fluid px-0">
+                    <div class="row mb-2">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Application Date</div>
+                        <div class="col-7 col-md-8" data-field="applicationDate"></div>
                     </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Move-in Date</div>
-                        <div class="detail-value" data-field="moveInDate"></div>
+                    <div class="row mb-2">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Move-in Date</div>
+                        <div class="col-7 col-md-8" data-field="moveInDate"></div>
                     </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Number of Occupants</div>
-                        <div class="detail-value" data-field="occupants"></div>
+                    <div class="row mb-2">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Number of Occupants</div>
+                        <div class="col-7 col-md-8" data-field="occupants"></div>
                     </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Smokers</div>
-                        <div class="detail-value" data-field="smokers"></div>
+                    <div class="row mb-2">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Smokers</div>
+                        <div class="col-7 col-md-8" data-field="smokers"></div>
                     </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Pets</div>
-                        <div class="detail-value" data-field="pets"></div>
+                    <div class="row mb-2">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Pets</div>
+                        <div class="col-7 col-md-8" data-field="pets"></div>
                     </div>
-                    <div class="detail-item pet-details-item" style="display:none;">
-                        <div class="detail-label">Pet Details</div>
-                        <div class="detail-value" data-field="petDetails"></div>
+                    <div class="row mb-2 pet-details-item" style="display:none;">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Pet Details</div>
+                        <div class="col-7 col-md-8" data-field="petDetails"></div>
                     </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Vehicles</div>
-                        <div class="detail-value" data-field="vehicles"></div>
+                    <div class="row mb-2">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Vehicles</div>
+                        <div class="col-7 col-md-8" data-field="vehicles"></div>
                     </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Special Vehicles</div>
-                        <div class="detail-value" data-field="specialVehicles"></div>
+                    <div class="row mb-2">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Special Vehicles</div>
+                        <div class="col-7 col-md-8" data-field="specialVehicles"></div>
                     </div>
-                    <div class="detail-item special-vehicles-details-item" style="display:none;">
-                        <div class="detail-label">Special Vehicles Details</div>
-                        <div class="detail-value" data-field="specialVehiclesDetails"></div>
+                    <div class="row mb-2 special-vehicles-details-item" style="display:none;">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Special Vehicles Details</div>
+                        <div class="col-7 col-md-8" data-field="specialVehiclesDetails"></div>
                     </div>
                 </div>
             </div>
-            <div class="details-section">
-                <h3>Rental History</h3>
-                <div class="details-grid">
-                    <div class="detail-item">
-                        <div class="detail-label">Current Housing</div>
-                        <div class="detail-value" data-field="housingSituation"></div>
+            <div class="my-4">
+                <h4>Rental History</h4>
+                <div class="container-fluid px-0">
+                    <div class="row mb-2">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Current Housing</div>
+                        <div class="col-7 col-md-8" data-field="housingSituation"></div>
                     </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Residence Duration</div>
-                        <div class="detail-value" data-field="residenceDuration"></div>
+                    <div class="row mb-2">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Residence Duration</div>
+                        <div class="col-7 col-md-8" data-field="residenceDuration"></div>
                     </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Reason for Moving</div>
-                        <div class="detail-value" data-field="reasonForMoving"></div>
+                    <div class="row mb-2">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Reason for Moving</div>
+                        <div class="col-7 col-md-8" data-field="reasonForMoving"></div>
                     </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Private Landlord Before?</div>
-                        <div class="detail-value" data-field="privateLandlord"></div>
+                    <div class="row mb-2">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Private Landlord Before?</div>
+                        <div class="col-7 col-md-8" data-field="privateLandlord"></div>
                     </div>
-                    <div class="detail-item rental-units-item" style="display:none;">
-                        <div class="detail-label">Rental Units (last 5y)</div>
-                        <div class="detail-value" data-field="rentalUnits"></div>
+                    <div class="row mb-2 rental-units-item" style="display:none;">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Rental Units (last 5y)</div>
+                        <div class="col-7 col-md-8" data-field="rentalUnits"></div>
                     </div>
-                    <div class="detail-item rent-difficulty-item" style="display:none;">
-                        <div class="detail-label">Rent Difficulty</div>
-                        <div class="detail-value" data-field="rentDifficulty"></div>
+                    <div class="row mb-2 rent-difficulty-item" style="display:none;">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Rent Difficulty</div>
+                        <div class="col-7 col-md-8" data-field="rentDifficulty"></div>
                     </div>
-                    <div class="detail-item rent-difficulty-details-item" style="display:none;">
-                        <div class="detail-label">Rent Difficulty Details</div>
-                        <div class="detail-value" data-field="rentDifficultyDetails"></div>
+                    <div class="row mb-2 rent-difficulty-details-item" style="display:none;">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Rent Difficulty Details</div>
+                        <div class="col-7 col-md-8" data-field="rentDifficultyDetails"></div>
                     </div>
-                    <div class="detail-item tenancy-notice-item" style="display:none;">
-                        <div class="detail-label">Tenancy Notice</div>
-                        <div class="detail-value" data-field="tenancyNotice"></div>
+                    <div class="row mb-2 tenancy-notice-item" style="display:none;">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Tenancy Notice</div>
+                        <div class="col-7 col-md-8" data-field="tenancyNotice"></div>
                     </div>
-                    <div class="detail-item tenancy-notice-details-item" style="display:none;">
-                        <div class="detail-label">Tenancy Notice Details</div>
-                        <div class="detail-value" data-field="tenancyNoticeDetails"></div>
+                    <div class="row mb-2 tenancy-notice-details-item" style="display:none;">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Tenancy Notice Details</div>
+                        <div class="col-7 col-md-8" data-field="tenancyNoticeDetails"></div>
                     </div>
-                    <div class="detail-item rental-dispute-item" style="display:none;">
-                        <div class="detail-label">Rental Dispute</div>
-                        <div class="detail-value" data-field="rentalDispute"></div>
+                    <div class="row mb-2 rental-dispute-item" style="display:none;">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Rental Dispute</div>
+                        <div class="col-7 col-md-8" data-field="rentalDispute"></div>
                     </div>
-                    <div class="detail-item rental-dispute-details-item" style="display:none;">
-                        <div class="detail-label">Rental Dispute Details</div>
-                        <div class="detail-value" data-field="rentalDisputeDetails"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="details-section">
-                <h3>Employment & Income</h3>
-                <div class="details-grid">
-                    <div class="detail-item">
-                        <div class="detail-label">Employment Status</div>
-                        <div class="detail-value" data-field="employmentStatus"></div>
-                    </div>
-                    <div class="detail-item profession-item" style="display:none;">
-                        <div class="detail-label">Profession / Field</div>
-                        <div class="detail-value" data-field="profession"></div>
-                    </div>
-                    <div class="detail-item employment-duration-item" style="display:none;">
-                        <div class="detail-label">Employment Duration</div>
-                        <div class="detail-value" data-field="employmentDuration"></div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Gross Monthly Income</div>
-                        <div class="detail-value" data-field="grossIncome"></div>
+                    <div class="row mb-2 rental-dispute-details-item" style="display:none;">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Rental Dispute Details</div>
+                        <div class="col-7 col-md-8" data-field="rentalDisputeDetails"></div>
                     </div>
                 </div>
             </div>
-            <div class="details-section">
-                <h3>Business & Other</h3>
-                <div class="details-grid">
-                    <div class="detail-item">
-                        <div class="detail-label">Business Activity</div>
-                        <div class="detail-value" data-field="businessActivity"></div>
+            <div class="my-4">
+                <h4>Employment & Income</h4>
+                <div class="container-fluid px-0">
+                    <div class="row mb-2">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Employment Status</div>
+                        <div class="col-7 col-md-8" data-field="employmentStatus"></div>
                     </div>
-                    <div class="detail-item business-activity-details-item" style="display:none;">
-                        <div class="detail-label">Business Activity Details</div>
-                        <div class="detail-value" data-field="businessActivityDetails"></div>
+                    <div class="row mb-2 profession-item" style="display:none;">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Profession / Field</div>
+                        <div class="col-7 col-md-8" data-field="profession"></div>
                     </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Consent to Credit/Background Check</div>
-                        <div class="detail-value" data-field="creditConsent"></div>
+                    <div class="row mb-2 employment-duration-item" style="display:none;">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Employment Duration</div>
+                        <div class="col-7 col-md-8" data-field="employmentDuration"></div>
                     </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Additional Info</div>
-                        <div class="detail-value" data-field="additionalInfo"></div>
+                    <div class="row mb-2">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Gross Monthly Income</div>
+                        <div class="col-7 col-md-8" data-field="grossIncome"></div>
                     </div>
                 </div>
             </div>
-            <div class="details-section">
-                <h3>Declarations</h3>
-                <div class="details-grid">
-                    <div class="detail-item">
-                        <div class="detail-label">Declaration: Info is True</div>
-                        <div class="detail-value" data-field="declaration1"></div>
+            <div class="my-4">
+                <h4>Business & Other</h4>
+                <div class="container-fluid px-0">
+                    <div class="row mb-2">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Business Activity</div>
+                        <div class="col-7 col-md-8" data-field="businessActivity"></div>
                     </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Declaration: No False Info</div>
-                        <div class="detail-value" data-field="declaration2"></div>
+                    <div class="row mb-2 business-activity-details-item" style="display:none;">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Business Activity Details</div>
+                        <div class="col-7 col-md-8" data-field="businessActivityDetails"></div>
                     </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Consent to Contact</div>
-                        <div class="detail-value" data-field="consentContact"></div>
+                    <div class="row mb-2">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Consent to Credit/Background Check</div>
+                        <div class="col-7 col-md-8" data-field="creditConsent"></div>
                     </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Consent to News</div>
-                        <div class="detail-value" data-field="consentNews"></div>
+                    <div class="row mb-2">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Additional Info</div>
+                        <div class="col-7 col-md-8" data-field="additionalInfo"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="my-4">
+                <h4>Declarations</h4>
+                <div class="container-fluid px-0">
+                    <div class="row mb-2">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Declaration: Info is True</div>
+                        <div class="col-7 col-md-8" data-field="declaration1"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Declaration: No False Info</div>
+                        <div class="col-7 col-md-8" data-field="declaration2"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Consent to Contact</div>
+                        <div class="col-7 col-md-8" data-field="consentContact"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-5 col-md-4 text-end fw-medium text-secondary">Consent to News</div>
+                        <div class="col-7 col-md-8" data-field="consentNews"></div>
                     </div>
                 </div>
             </div>
@@ -1152,6 +1012,6 @@
         </tr>
     </template>
 
-    <script src="code.js?ts=1750908327"></script>
+    <script src="code.js?ts=1750979381"></script>
 </body>
 </html>
