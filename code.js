@@ -542,9 +542,19 @@ function showTenantCandidatesScreen(propertyId) {
                     tds[5].textContent = candidate.vehicles || '';
                     tds[6].textContent = candidate.score !== undefined && candidate.score !== null ? candidate.score : '';
                     tds[7].textContent = candidate.applicationDate || '';
-                    // Details link
+                    // Details link + email icon if lastEmailSent
                     const detailsLink = tds[8].querySelector('a');
                     detailsLink.onclick = () => showCandidateDetailsScreen(candidate.id);
+
+                    // Add email icon if lastEmailSent exists
+                    if (candidate.lastEmailSent) {
+                        const emailIcon = document.createElement('i');
+                        emailIcon.className = 'bi bi-envelope-fill ms-2 text-primary';
+                        emailIcon.style.cursor = 'pointer';
+                        emailIcon.title = `Last email sent: ${candidate.lastEmailSent}`;
+                        // Optionally, use a tooltip library or native title
+                        detailsLink.appendChild(emailIcon);
+                    }
                     tbody.appendChild(row);
                 });
                 container.appendChild(table);
@@ -1185,11 +1195,13 @@ function showEmailCandidateScreen() {
             document.getElementById('emailCandidateSubject').value = subject;
 
             let defaultMsg = 
-`Hello,
+`Property: ${address}
+Hello,
 
-Thank you for your application for our rental property at ${address}. We would like to discuss your application further. Please reply to this email if you are interested.
+Thank you for your application for our rental property. We would like to discuss your application further. Please reply to this email if you are interested.
 
-Best regards
+Best regards,
+[Your Name]
 
 Listing: ${link}
 
@@ -1207,7 +1219,8 @@ Description: ${description}
 
 Thank you for your application for our rental property. We would like to discuss your application further. Please reply to this email if you are interested.
 
-Best regards,`;
+Best regards,
+[Your Name]`;
         })
         .finally(hideOverlay);
 
