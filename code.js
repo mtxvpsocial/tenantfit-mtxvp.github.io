@@ -1164,6 +1164,7 @@ function showEmailCandidateScreen() {
 
     if (!candidateId) {
         document.getElementById('emailCandidateText').value = '';
+        document.getElementById('emailCandidateSubject').value = '';
         showAlert('Candidate not found.', 'danger');
         return;
     }
@@ -1172,10 +1173,16 @@ function showEmailCandidateScreen() {
     fetch(`${baseUrl}/get-candidate-property-info?id=${encodeURIComponent(candidateId)}`)
         .then(response => response.json())
         .then(data => {
-            const address = data || data.address || '';
-            const description = data || data.description || '';
-            const link = data || data.link || '';
-            const availability = data || data.availability || '';
+            const address = data && data.address ? data.address : '';
+            const description = data && data.description ? data.description : '';
+            const link = data && data.link ? data.link : '';
+            const availability = data && data.availability ? data.availability : '';
+
+            let subject = "Regarding your rental application";
+            if (address) {
+                subject = `Regarding your rental application for ${address}`;
+            }
+            document.getElementById('emailCandidateSubject').value = subject;
 
             let defaultMsg = 
 `Property: ${address}
@@ -1196,6 +1203,7 @@ Description: ${description}
             document.getElementById('emailCandidateText').value = defaultMsg;
         })
         .catch(() => {
+            document.getElementById('emailCandidateSubject').value = "Regarding your rental application";
             document.getElementById('emailCandidateText').value =
 `Hello,
 
@@ -1213,9 +1221,15 @@ Best regards,
 }
 
 function sendEmailToCandidate() {
+    const subject = document.getElementById('emailCandidateSubject').value.trim();
     const text = document.getElementById('emailCandidateText').value.trim();
     const msgBox = document.getElementById('emailCandidateMessage');
     msgBox.style.display = 'none';
+    if (!subject || subject.length < 3) {
+        msgBox.textContent = 'Please enter a subject (at least 3 characters).';
+        msgBox.style.display = '';
+        return;
+    }
     if (!text || text.length < 5) {
         msgBox.textContent = 'Please enter a message (at least 5 characters).';
         msgBox.style.display = '';
@@ -1233,6 +1247,7 @@ function sendEmailToCandidate() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             candidateId: candidateId,
+            subject: subject,
             message: text
         })
     })
