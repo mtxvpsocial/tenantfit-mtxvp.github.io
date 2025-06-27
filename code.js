@@ -575,6 +575,7 @@ function showCandidateDetailsScreen(candidateId) {
             }
 
             const candidate = data.candidate;
+            const lastEmailSent = data.lastEmailSent;
             const content = document.getElementById('candidateDetailsContent');
             const template = document.getElementById('candidateDetailsTemplate');
             content.innerHTML = '';
@@ -586,6 +587,16 @@ function showCandidateDetailsScreen(candidateId) {
                 if (badge) {
                     badge.className = `badge ${getScoreBadgeClass(candidate.score)}`;
                     badge.querySelector('.score-value').textContent = candidate.score || 'N/A';
+                }
+
+                // Set last email sent info
+                const lastEmailDiv = node.querySelector('#lastEmailSentInfo');
+                if (lastEmailDiv) {
+                    if (lastEmailSent) {
+                        lastEmailDiv.textContent = `Last email sent on: ${lastEmailSent}`;
+                    } else {
+                        lastEmailDiv.textContent = 'Last email sent on: Never';
+                    }
                 }
 
                 // Helper for boolean display
@@ -756,7 +767,8 @@ function hideAllScreens() {
         'landingScreen', 'loginScreen', 'registerScreen', 'forgotPasswordScreen', 
         'confirmEmailScreen', 'resetPasswordScreen', 'dashboardScreen', 
         'addPropertyScreen', 'publicPropertyScreen', 'tenantCandidatesScreen',
-        'confirmationScreen', 'thankYouScreen', 'tenantDetailsScreen', 'candidateDetailsScreen'
+        'confirmationScreen', 'thankYouScreen', 'tenantDetailsScreen', 'candidateDetailsScreen',
+        'emailCandidateScreen'
     ];
     screens.forEach(screenId => {
         const screen = document.getElementById(screenId);
@@ -838,6 +850,18 @@ function handleScreen(screen) {
             else showDashboardScreen();
             break;
         }
+        case 'emailCandidate': {
+            let candidateId = history.state?.candidateId;
+            if (!candidateId) {
+                const hash = window.location.hash;
+                if (hash.startsWith('#emailCandidate/')) {
+                    candidateId = hash.split('/')[1];
+                }
+            }
+            if (candidateId) showEmailCandidateScreen();
+            else showDashboardScreen();
+            break;
+        }
         default:
             showLoginScreen();
     }
@@ -903,6 +927,12 @@ function handleHashOrDefault() {
         const propertyId = hash.split('/')[1];
         showAddPropertyScreen(propertyId);
         return;
+    } else if (hash.startsWith('#emailCandidate/')) {
+        const candidateId = hash.split('/')[1];
+        if (candidateId) {
+            showEmailCandidateScreen();
+            return;
+        }
     }
 
     showLandingScreen();
@@ -1110,3 +1140,115 @@ document.querySelectorAll('textarea[required]').forEach(textarea => {
         }
     });
 });
+
+function getCandidateId(){
+    const hash = window.location.hash;
+    if (hash.startsWith('#emailCandidate/')) {
+        return hash.split('/')[1];
+    }
+    else if (hash.startsWith('#candidateDetails/')) {
+        return hash.split('/')[1];
+    }
+    return null;
+}
+
+function backToCandidateDetailsScreen(){
+    showCandidateDetailsScreen(getCandidateId())
+}
+
+function showEmailCandidateScreen() {
+    hideAllScreens();
+    let candidateId = getCandidateId();
+    document.getElementById('emailCandidateScreen').classList.remove('hidden');
+    document.getElementById('emailCandidateMessage').style.display = 'none';
+
+    if (!candidateId) {
+        document.getElementById('emailCandidateText').value = '';
+        showAlert('Candidate not found.', 'danger');
+        return;
+    }
+
+    showOverlay();
+    fetch(`${baseUrl}/get-candidate-property-info?id=${encodeURIComponent(candidateId)}`)
+        .then(response => response.json())
+        .then(data => {
+            const address = data || data.address || '';
+            const description = data || data.description || '';
+            const link = data || data.link || '';
+            const availability = data || data.availability || '';
+
+            let defaultMsg = 
+`Property: ${address}
+Hello,
+
+Thank you for your application for our rental property. We would like to discuss your application further. Please reply to this email if you are interested.
+
+Best regards,
+[Your Name]
+
+Listing: ${link}
+
+Available: ${availability}
+
+Description: ${description}
+
+`;
+            document.getElementById('emailCandidateText').value = defaultMsg;
+        })
+        .catch(() => {
+            document.getElementById('emailCandidateText').value =
+`Hello,
+
+Thank you for your application for our rental property. We would like to discuss your application further. Please reply to this email if you are interested.
+
+Best regards,
+[Your Name]`;
+        })
+        .finally(hideOverlay);
+
+    if (history.state?.screen !== 'emailCandidate' || history.state?.candidateId !== candidateId) {
+        history.pushState({ screen: 'emailCandidate', candidateId }, '', `#emailCandidate/${encodeURIComponent(candidateId)}`);
+    }
+    document.getElementById('emailCandidateScreen').classList.remove('hidden');
+}
+
+function sendEmailToCandidate() {
+    const text = document.getElementById('emailCandidateText').value.trim();
+    const msgBox = document.getElementById('emailCandidateMessage');
+    msgBox.style.display = 'none';
+    if (!text || text.length < 5) {
+        msgBox.textContent = 'Please enter a message (at least 5 characters).';
+        msgBox.style.display = '';
+        return;
+    }
+    let candidateId = getCandidateId();
+    if (!candidateId) {
+        msgBox.textContent = 'Candidate not found.';
+        msgBox.style.display = '';
+        return;
+    }
+    showOverlay();
+    fetch(baseUrl + '/email-candidate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            candidateId: candidateId,
+            message: text
+        })
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            showAlert('Email sent to candidate!', 'success');
+            showCandidateDetailsScreen(candidateId);
+        } else {
+            msgBox.textContent = data.message || 'Failed to send email.';
+            msgBox.style.display = '';
+        }
+    })
+    .catch(() => {
+        msgBox.textContent = 'Failed to send email.';
+        msgBox.style.display = '';
+    })
+    .finally(hideOverlay);
+}

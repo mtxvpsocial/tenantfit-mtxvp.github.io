@@ -805,7 +805,6 @@
             <div class="thank-you-screen">
                 <h2>Thank You!</h2>
                 <p id="thankYouMessage"></p>
-                <button class="btn btn-primary" onclick="showPublicPropertyScreen()">Back to Property</button>
             </div>
         </div>
 
@@ -841,7 +840,13 @@
                     <span id="candidateScoreBadge" class="badge">
                         Score: <span class="score-value"></span>
                     </span>
+                    <div class="d-flex justify-content-end mb-3">
+                        <button type="button" class="btn btn-primary" id="emailCandidateBtn" onclick="showEmailCandidateScreen()">
+                            <i class="bi bi-envelope"></i> Email candidate 
+                        </button>
+                    </div>
                 </div>
+                <div id="lastEmailSentInfo" class="mb-3 text-muted small"></div>
                 <div class="container-fluid px-0">
                     <div class="row mb-2">
                         <div class="col-5 col-md-4 text-end fw-medium text-secondary">Application Date</div>
@@ -1012,6 +1017,29 @@
         </tr>
     </template>
 
-    <script src="code.js?ts=1750979381"></script>
+    <!-- Email Candidate Screen -->
+    <div id="emailCandidateScreen" class="hidden">
+        <div class="min-vh-100 d-flex mt-1 align-items-start justify-content-center">
+            <div class="bg-white rounded-2 shadow shadow-mobile-none p-4 mx-auto col-12 col-lg-8">
+                <nav aria-label="breadcrumb" class="mb-2">
+                    <ol class="breadcrumb small">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="showDashboardScreen()">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="backToTenantCandidatesScreen()">Tenant Candidates</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="backToCandidateDetailsScreen()">Candidate Details</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Email Candidate</li>
+                    </ol>
+                </nav>
+                <div id="emailCandidateMessage" class="mb-2 text-danger" style="display:none;"></div>
+                <div class="mb-3">
+                    <textarea id="emailCandidateText" class="form-control" rows="8" required></textarea>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-primary" onclick="sendEmailToCandidate()">Send</button>
+                    <button type="button" class="btn btn-secondary" onclick="backToCandidateDetailsScreen()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="code.js?ts=1751059299"></script>
 </body>
 </html>
