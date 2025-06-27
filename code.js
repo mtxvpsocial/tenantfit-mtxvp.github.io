@@ -1185,13 +1185,11 @@ function showEmailCandidateScreen() {
             document.getElementById('emailCandidateSubject').value = subject;
 
             let defaultMsg = 
-`Property: ${address}
-Hello,
+`Hello,
 
-Thank you for your application for our rental property. We would like to discuss your application further. Please reply to this email if you are interested.
+Thank you for your application for our rental property at ${address}. We would like to discuss your application further. Please reply to this email if you are interested.
 
-Best regards,
-[Your Name]
+Best regards
 
 Listing: ${link}
 
@@ -1209,8 +1207,7 @@ Description: ${description}
 
 Thank you for your application for our rental property. We would like to discuss your application further. Please reply to this email if you are interested.
 
-Best regards,
-[Your Name]`;
+Best regards,`;
         })
         .finally(hideOverlay);
 
