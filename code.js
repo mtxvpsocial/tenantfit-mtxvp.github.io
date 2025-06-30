@@ -428,19 +428,6 @@ function updatePropertyStatus(action, id, ownerId, successMessage, errorMessage)
     .finally(hideOverlay);
 }
 
-// function deleteProperty(id) {
-//     if (!confirm('Are you sure you want to delete this property? This cannot be undone.')) return;
-//     updatePropertyStatus('delete', id, currentUser && currentUser.userId, 'Property deleted!', 'Could not delete property.');
-// }
-
-function activateProperty(id) {
-    updatePropertyStatus('activate', id, currentUser && currentUser.userId, 'Property activated!', 'Could not activate property.');
-}
-
-function deactivateProperty(id) {
-    updatePropertyStatus('deactivate', id, currentUser && currentUser.userId, 'Property deactivated!', 'Could not deactivate property.');
-}
-
 function fetchProperties() {
     showOverlay();
     const params = new URLSearchParams({
@@ -455,17 +442,17 @@ function fetchProperties() {
     .then(response => response.json())
     .then(data => {
         renderProperties(data.properties || []);
-        updateUsageMeter(data.activeCount || 0, data.maxActive || 1);
+        updateUsageMeter(data.properties.length || 0, data.maxProperties || 1);
     })
     .catch(error => showAlert('An error occurred: ' + error.message, 'danger'))
     .finally(hideOverlay);
 }
 
-function updateUsageMeter(activeCount, maxActive) {
+function updateUsageMeter(propertyCount, maxProperties) {
     const usageMeter = document.getElementById('usageMeter');
     if (usageMeter) {
-        usageMeter.textContent = `${activeCount} of ${maxActive} active listings used`;
-        usageMeter.className = `badge ${activeCount >= maxActive ? 'bg-danger' : 'bg-info'} text-dark align-self-start align-self-sm-center mt-2 mt-sm-0`;
+        usageMeter.textContent = `${propertyCount} of ${maxProperties} properties used`;
+        usageMeter.className = `badge ${propertyCount >= maxProperties ? 'bg-danger' : 'bg-info'} text-dark align-self-start align-self-sm-center mt-2 mt-sm-0`;
     }
 }
 
@@ -474,22 +461,7 @@ function renderProperties(properties) {
     if (tbody) {
         tbody.innerHTML = '';
         properties.forEach(prop => {
-            const isActive = prop.status === 'Active';
             const publicUrl = `${window.location.origin + window.location.pathname}#publicProperty?id=${prop.id}`;
-            const activateBtn = isActive
-                ? `<button class="btn btn-sm btn-outline-secondary" title="Deactivate" onclick="deactivateProperty('${prop.id}')">
-                        <i class="bi bi-toggle2-on"></i>
-                        <span class="visually-hidden">Deactivate</span>
-                   </button>`
-                : `<button class="btn btn-sm btn-outline-success" title="Activate" onclick="activateProperty('${prop.id}')">
-                        <i class="bi bi-toggle2-off"></i>
-                        <span class="visually-hidden">Activate</span>
-                   </button>`;
-            const copyBtn = `<button class="btn btn-sm btn-outline-primary me-1 ${isActive ? 'active bg-success' : ''}" title="Copy Link" onclick="copyLink('${publicUrl}')" ${!isActive ? 'disabled' : ''}>
-                            <i class="bi bi-clipboard"></i>
-                            <span class="visually-hidden">Copy Link</span>
-                         </button>`;
-            const candidatesLink = `<a href="javascript:void(0)" onclick="showTenantCandidatesScreen('${prop.id}')">${prop.candidatesCount || 0}</a>`;
             const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td class="text-break">
@@ -497,14 +469,13 @@ function renderProperties(properties) {
                     <a href="javascript:void(0)" onclick="editProperty('${prop.id}')">${prop.address}</a>
                 </td>
                 <td>
-                    <span class="badge ${isActive ? 'bg-success' : 'bg-secondary'}">${prop.status}</span>
+                    <a href="javascript:void(0)" onclick="showTenantCandidatesScreen('${prop.id}')">${prop.candidatesCount || 0}</a>
                 </td>
-                <td>${candidatesLink}</td>
-                <td class="text-end d-none d-sm-table-cell">
-                    <div class="d-flex dashboard-actions justify-content-end">
-                        ${activateBtn}
-                        ${copyBtn}
-                    </div>
+                <td class="text-end">
+                    <button class="btn btn-sm btn-outline-primary bg-success" title="Copy Link" onclick="copyLink('${publicUrl}')">
+                        <i class="bi bi-clipboard"></i>
+                        <span class="visually-hidden">Copy Link</span>
+                    </button>
                 </td>
             `;
             tbody.appendChild(tr);
