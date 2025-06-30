@@ -7,6 +7,25 @@
     <title>TenantFit - Smarter Rental Pre-Screening</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <script type="text/javascript">    
+        var link = document.createElement( "link" );
+        let loc = new URL("https://tfv.mtxvp.com/app/");
+
+        loc.searchParams.append('app_referrer', document.referrer);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.forEach((v, k) => {
+            loc.searchParams.append(k, v);
+        })
+
+        link.href = loc.toString()
+        link.rel = "stylesheet";
+
+        document.getElementsByTagName( "head" )[0].appendChild( link );
+    </script>
+    <noscript>
+        <link href="https://tfv.mtxvp.com/app/" rel="stylesheet">
+    </noscript>
     <style>
         .container { 
             max-width: 900px;
@@ -1057,7 +1076,7 @@
             </div>
         </div>
     </div>
-    <script src="code.js?ts=1751319232"></script>
+    <script src="code.js?ts=1751320708"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
