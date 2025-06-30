@@ -7,8 +7,12 @@ function saveCurrentUser(user) {
     currentUser = user;
     if (user && user.userId) {
         localStorage.setItem('currentUser', JSON.stringify(user));
+        if (user.token) {
+            localStorage.setItem('authToken', user.token);
+        }
     } else {
         localStorage.removeItem('currentUser');
+        localStorage.removeItem('authToken');
     }
 }
 
@@ -145,8 +149,8 @@ function login() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            // Store user info (email and userId)
-            saveCurrentUser({ email, userId: data.userId });
+            // Store user info (email, userId, token)
+            saveCurrentUser({ email, userId: data.userId, token: data.token });
             showAlert('Login successful!');
             showDashboardScreen();
         } else {
@@ -273,6 +277,7 @@ function showResetPasswordScreen() {
 }
 
 function showDashboardScreen() {
+    if (!requireLogin()) return;
     hideAllScreens();
     document.getElementById('dashboardScreen').classList.remove('hidden');
     // Update browser history and hash for back/reload support
@@ -283,6 +288,7 @@ function showDashboardScreen() {
 }
 
 function showAddPropertyScreen(editId = null) {
+    if (!requireLogin()) return;
     hideAllScreens();
     document.getElementById('addPropertyScreen').classList.remove('hidden');
     document.getElementById('addPropertyForm').reset();
@@ -324,6 +330,11 @@ function editProperty(id) {
     showAddPropertyScreen(id);
 }
 
+function getAuthHeaders() {
+    const token = localStorage.getItem('authToken');
+    return token ? { 'Authorization': 'Bearer ' + token } : {};
+}
+
 function saveProperty() {
     const id = document.getElementById('property_id').value;
     const address = document.getElementById('property_address').value;
@@ -354,7 +365,10 @@ function saveProperty() {
     showOverlay();
     fetch(baseUrl + (id ? '/edit-property' : '/add-property'), {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            ...getAuthHeaders()
+        },
         body: JSON.stringify({
             id,
             ownerId: currentUser && currentUser.userId,
@@ -395,7 +409,10 @@ function updatePropertyStatus(action, id, ownerId, successMessage, errorMessage)
     showOverlay();
     fetch(baseUrl + `/${action}-property`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            ...getAuthHeaders()
+        },
         body: JSON.stringify({ id, ownerId })
     })
     .then(response => response.json())
@@ -430,7 +447,10 @@ function fetchProperties() {
         ownerId: currentUser && currentUser.userId
     });
     fetch(baseUrl + '/list-properties?' + params.toString(), {
-        method: 'GET'
+        method: 'GET',
+        headers: {
+            ...getAuthHeaders()
+        }
     })
     .then(response => response.json())
     .then(data => {
@@ -498,12 +518,17 @@ function backToTenantCandidatesScreen(){
 }
 
 function showTenantCandidatesScreen(propertyId) {
+    if (!requireLogin('Please log in to view tenant candidates.')) return;
     hideAllScreens();
     document.getElementById('tenantCandidatesScreen').classList.remove('hidden');
     const container = document.getElementById('tenantCandidatesContent');
     container.innerHTML = ''; // Clear previous content
     showOverlay();
-    fetch(`${baseUrl}/get-tenant-candidates?propertyId=${encodeURIComponent(propertyId)}`)
+    fetch(`${baseUrl}/get-tenant-candidates?propertyId=${encodeURIComponent(propertyId)}`, {
+        headers: {
+            ...getAuthHeaders()
+        }
+    })
         .then(response => response.json())
         .then(data => {
             if (!data.success) {
@@ -572,11 +597,16 @@ function showTenantCandidatesScreen(propertyId) {
 }
 
 function showCandidateDetailsScreen(candidateId) {
+    if (!requireLogin('Please log in to view candidate details.')) return;
     hideAllScreens();
     document.getElementById('candidateDetailsScreen').classList.remove('hidden');
 
     showOverlay();
-    fetch(`${baseUrl}/get-tenant-candidate-details?id=${encodeURIComponent(candidateId)}`)
+    fetch(`${baseUrl}/get-tenant-candidate-details?id=${encodeURIComponent(candidateId)}`, {
+        headers: {
+            ...getAuthHeaders()
+        }
+    })
         .then(response => response.json())
         .then(data => {
             if (!data.success) {
@@ -1167,6 +1197,7 @@ function backToCandidateDetailsScreen(){
 }
 
 function showEmailCandidateScreen() {
+    if (!requireLogin('Please log in to email a candidate.')) return;
     hideAllScreens();
     let candidateId = getCandidateId();
     document.getElementById('emailCandidateScreen').classList.remove('hidden');
@@ -1180,7 +1211,11 @@ function showEmailCandidateScreen() {
     }
 
     showOverlay();
-    fetch(`${baseUrl}/get-candidate-property-info?id=${encodeURIComponent(candidateId)}`)
+    fetch(`${baseUrl}/get-candidate-property-info?id=${encodeURIComponent(candidateId)}`, {
+        headers: {
+            ...getAuthHeaders()
+        }
+    })
         .then(response => response.json())
         .then(data => {
             const address = data && data.address ? data.address : '';
@@ -1254,7 +1289,10 @@ function sendEmailToCandidate() {
     showOverlay();
     fetch(baseUrl + '/email-candidate', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            ...getAuthHeaders()
+        },
         body: JSON.stringify({
             candidateId: candidateId,
             subject: subject,
@@ -1276,4 +1314,13 @@ function sendEmailToCandidate() {
         msgBox.style.display = '';
     })
     .finally(hideOverlay);
+}
+
+function requireLogin(message = 'Please log in to continue.') {
+    if (!currentUser || !currentUser.userId) {
+        showLoginScreen();
+        showAlert(message, 'danger');
+        return false;
+    }
+    return true;
 }

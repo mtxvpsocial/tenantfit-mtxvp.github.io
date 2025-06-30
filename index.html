@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TenantFit - Smarter Rental Pre-Screening</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <style>
         .container { 
             max-width: 900px;
@@ -381,12 +381,26 @@
         <div id="dashboardScreen" class="hidden">
             <div class="min-vh-100 d-flex mt-1 align-items-start justify-content-center">
                 <div class="bg-white rounded-2 shadow shadow-mobile-none p-4 mx-auto col-12 col-lg-8">
-                    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center mb-3 gap-2">
-                        <button class="btn btn-success dashboard-header-btn" onclick="showAddPropertyScreen()">
-                            <i class="bi bi-plus-lg"></i> Add New Property
-                        </button>
-                        <button type="button" class="btn btn-secondary mt-3" onclick="logout()">Log Out</button>
-                    </div>
+                    
+                    <!-- TenantFit Logo (add mt-2 for vertical alignment with navbar) -->
+                            <!-- Navbar Start -->
+                    <nav class="navbar navbar-expand-lg navbar-light mb-3 rounded pt-0">
+                        <div class="container-fluid">
+                            <a class="navbar-brand fw-bold" href="#">TenantFit</a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#dashboardNavbar" aria-controls="dashboardNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="dashboardNavbar">
+                                <div class="navbar-nav ms-auto mb-2 mb-lg-0">
+                                    <a class="nav-item nav-link" href="javascript:void(0)" onclick="showAddPropertyScreen()">Add Property</a>
+                                    <!-- <a class="nav-item nav-link" href="#" onclick="feedback()">Feedback</a> -->
+                                    <a class="nav-item nav-link" href="javascript:void(0)" onclick="logout()">Log Out</a>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                    <!-- Navbar End -->
+        
                     <div class="mb-2">
                         <span id="usageMeter" class="badge bg-info text-dark align-self-start align-self-sm-center mt-2 mt-sm-0">1 of 1 active listings used</span>
                         <small class="text-muted">Want to activate more? <a href="#">Upgrade here</a></small>
@@ -1045,6 +1059,7 @@
             </div>
         </div>
     </div>
-    <script src="code.js?ts=1751067748"></script>
+    <script src="code.js?ts=1751308361"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
