@@ -1206,8 +1206,7 @@ Hello,
 
 Thank you for your application for our rental property. We would like to discuss your application further. Please reply to this email if you are interested.
 
-Best regards,
-[Your Name]
+Best regards
 
 Listing: ${link}
 
