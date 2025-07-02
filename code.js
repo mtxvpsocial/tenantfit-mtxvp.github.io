@@ -297,7 +297,12 @@ function showAddPropertyScreen(editId = null) {
     document.getElementById('property_id').value = editId || '';
     if (editId) {
         showOverlay();
-        fetch(baseUrl + `/get-property?id=${encodeURIComponent(editId)}`, { method: 'GET' })
+        fetch(baseUrl + `/get-property?id=${encodeURIComponent(editId)}`, {
+            method: 'GET',
+            headers: {
+                ...getAuthHeaders()
+            }
+        })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -740,7 +745,7 @@ function showPublicPropertyScreen() {
         container.innerHTML = ''; // Clear previous content
     }
     showOverlay();
-    fetch(baseUrl + '/get-property?id=' + encodeURIComponent(propertyId), { method: 'GET' })
+    fetch(baseUrl + '/get-public-property?id=' + encodeURIComponent(propertyId), { method: 'GET' })
         .then(response => response.json())
         .then(data => {
             if (!data.success) {
