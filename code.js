@@ -280,6 +280,7 @@ function showDashboardScreen() {
     if (!requireLogin()) return;
     hideAllScreens();
     document.getElementById('dashboardScreen').classList.remove('hidden');
+    injectNavbar();
     // Update browser history and hash for back/reload support
     if (history.state?.screen !== 'dashboard') {
         history.pushState({ screen: 'dashboard' }, '', '#dashboard');
@@ -291,6 +292,7 @@ function showAddPropertyScreen(editId = null) {
     if (!requireLogin()) return;
     hideAllScreens();
     document.getElementById('addPropertyScreen').classList.remove('hidden');
+    injectNavbar();
     document.getElementById('addPropertyForm').reset();
     document.getElementById('addPropertyForm').classList.remove('was-validated');
     document.getElementById('savePropertyButton').innerHTML = editId ? 'Update' : 'Add';
@@ -339,6 +341,17 @@ function getAuthHeaders() {
     const token = localStorage.getItem('authToken');
     return token ? { 'Authorization': 'Bearer ' + token } : {};
 }
+
+function showFeedbackScreen() {
+    hideAllScreens();
+    document.getElementById('feedbackScreen').classList.remove('hidden');
+    injectNavbar();
+    // Update browser history and hash for back/reload support
+    if (history.state?.screen !== 'feedback') {
+        history.pushState({ screen: 'feedback' }, '', '#feedback');
+    }
+}
+
 
 function saveProperty() {
     const id = document.getElementById('property_id').value;
@@ -497,6 +510,7 @@ function showTenantCandidatesScreen(propertyId) {
     if (!requireLogin('Please log in to view tenant candidates.')) return;
     hideAllScreens();
     document.getElementById('tenantCandidatesScreen').classList.remove('hidden');
+    injectNavbar();
     const container = document.getElementById('tenantCandidatesContent');
     container.innerHTML = ''; // Clear previous content
     showOverlay();
@@ -576,6 +590,7 @@ function showCandidateDetailsScreen(candidateId) {
     if (!requireLogin('Please log in to view candidate details.')) return;
     hideAllScreens();
     document.getElementById('candidateDetailsScreen').classList.remove('hidden');
+    injectNavbar();
 
     showOverlay();
     fetch(`${baseUrl}/get-tenant-candidate-details?id=${encodeURIComponent(candidateId)}`, {
@@ -784,7 +799,7 @@ function hideAllScreens() {
         'confirmEmailScreen', 'resetPasswordScreen', 'dashboardScreen', 
         'addPropertyScreen', 'publicPropertyScreen', 'tenantCandidatesScreen',
         'confirmationScreen', 'thankYouScreen', 'tenantDetailsScreen', 'candidateDetailsScreen',
-        'emailCandidateScreen'
+        'emailCandidateScreen', 'feedbackScreen'
     ];
     screens.forEach(screenId => {
         const screen = document.getElementById(screenId);
@@ -825,6 +840,9 @@ function handleScreen(screen) {
             break;
         case 'addProperty':
             showAddPropertyScreen();
+            break;
+        case 'feedback':
+            showFeedbackScreen();
             break;
         case 'editProperty': {
             // Try to get propertyId from state or hash
@@ -921,6 +939,9 @@ function handleHashOrDefault() {
     } else if (hash.startsWith('#publicProperty')) {
         if(showPublicPropertyScreen())
             return;
+    } else if (hash.startsWith('#feedback')) {
+        showFeedbackScreen();
+        return;
     } else if (hash.startsWith('#tenantCandidates/')) {
         const propertyId = hash.split('/')[1];
         if (propertyId) {
@@ -1177,6 +1198,7 @@ function showEmailCandidateScreen() {
     hideAllScreens();
     let candidateId = getCandidateId();
     document.getElementById('emailCandidateScreen').classList.remove('hidden');
+    injectNavbar();
     document.getElementById('emailCandidateMessage').style.display = 'none';
 
     if (!candidateId) {
@@ -1298,4 +1320,83 @@ function requireLogin(message = 'Please log in to continue.') {
         return false;
     }
     return true;
+}
+
+function sendFeedback() {
+    const feedbackForm = document.getElementById('feedbackForm');
+    const feedback_text = document.getElementById('feedback_text');
+    const feedback_email = document.getElementById('feedback_email');
+    let isValid = true;
+
+    // Reset validation UI
+    feedback_text.classList.remove('is-invalid');
+    feedback_email.classList.remove('is-invalid');
+    feedbackForm.classList.remove('was-validated');
+    if (feedback_text.nextElementSibling) feedback_text.nextElementSibling.style.display = 'none';
+    if (feedback_email.nextElementSibling) feedback_email.nextElementSibling.style.display = 'none';
+
+    // Validate feedback_text (required, min 5 chars)
+    if (!feedback_text.value.trim() || feedback_text.value.trim().length < 5) {
+        feedback_text.classList.add('is-invalid');
+        if (feedback_text.nextElementSibling) {
+            feedback_text.nextElementSibling.textContent = 'Please provide your feedback (at least 5 characters).';
+            feedback_text.nextElementSibling.style.display = '';
+        }
+        isValid = false;
+    }
+
+    // Validate feedback_email if present (optional, but must be valid if filled)
+    if (feedback_email.value.trim()) {
+        const emailVal = feedback_email.value.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+            feedback_email.classList.add('is-invalid');
+            if (feedback_email.nextElementSibling) {
+                feedback_email.nextElementSibling.textContent = 'Please provide a valid email.';
+                feedback_email.nextElementSibling.style.display = '';
+            }
+            isValid = false;
+        }
+    }
+
+    if (!isValid) {
+        feedbackForm.classList.add('was-validated');
+        return;
+    }
+
+    showOverlay();
+    fetch(baseUrl + '/save-feedback', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            description: feedback_text.value.trim(),
+            email: feedback_email.value.trim()
+        })
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            showAlert('Thank you for feedback!', 'success');
+            showDashboardScreen();
+
+            feedback_text.value = '';
+            feedback_email.value = '';
+        } else {
+            showAlert(data.message || 'Failed to save feedback.', 'danger');
+        }
+    })
+    .catch(() => {
+        showAlert('Failed to save feedback.', 'danger');
+    })
+    .finally(hideOverlay);
+}
+
+function injectNavbar() {
+    const template = document.getElementById('navbarTemplate');
+    if (!template) return;
+    document.querySelectorAll('.navbar-placeholder').forEach(placeholder => {
+        placeholder.innerHTML = '';
+        placeholder.appendChild(template.content.cloneNode(true));
+    });
 }
