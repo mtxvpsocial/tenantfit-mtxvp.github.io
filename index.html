@@ -491,7 +491,7 @@
                     <form id="applyForm" novalidate>
                         <h3 class="fw-bold text-dark mb-3">Rental Application Form</h3>
                         <p>We’ll ask a few basic questions to help the landlord understand if you’re a good fit for the rental.</p>
-                        <p><strong>Please do not enter any of the following:</strong></p>
+                        <p><strong>Please <span class="text-danger">do not enter</span> any of the following:</strong></p>
                         <ul>
                             <li>Full or partial names</li>
                             <li>Specific home or work addresses</li>
@@ -574,6 +574,10 @@
                             </select>
                             <div class="invalid-feedback">Please select your current housing situation.</div>
                         </div>
+                        <div class="mb-3" id="housingSituationDetailsContainer" style="display:none;">
+                            <label for="housingSituationDetails" class="form-label">Please specify your housing situation:</label>
+                            <textarea id="housingSituationDetails" name="housingSituationDetails" class="form-control" rows="3"></textarea>
+                        </div>
                         <div class="mb-3">
                             <label for="residenceDuration" class="form-label">How long have you lived at your current residence? <span class="text-danger">*</span></label>
                             <select class="form-select" id="residenceDuration" required>
@@ -646,7 +650,7 @@
                                 <div class="invalid-feedback">Please provide details about the notice.</div>
                             </div>
                             <div class="mb-3">
-                                <label for="rentalDispute" class="form-label">Have you ever been involved in a rental dispute that required mediation, tribunal, or legal action? <span class="text-danger">*</span></label>
+                                <label for="rentalDispute" class="form-label">Have you been involved in any disputes related to a rental property that you feel would be helpful to disclose or explain? <span class="text-danger">*</span></label>
                                 <select class="form-select" id="rentalDispute" required>
                                     <option value="">Select...</option>
                                     <option value="No">No</option>
@@ -705,7 +709,9 @@
                             <textarea class="form-control" id="specialVehiclesDetails" rows="3" required></textarea>
                             <div class="invalid-feedback">Please provide details about your special vehicles.</div>
                         </div>
-                        <div class="section-title">Financials</div>
+                        <div class="mt-5">
+                            <p><em>Income and employment information is requested only to assess ability to pay rent. We do not discriminate based on the source of income, as per the Ontario Human Rights Code.</em></p>
+                        </div>
                         <div class="mb-3">
                             <label for="grossIncome" class="form-label">What is your approximate gross monthly income? <span class="text-danger">*</span></label>
                             <select class="form-select" id="grossIncome" required>
@@ -1162,7 +1168,7 @@
     </template>
     
 
-    <script src="code.js?ts=1751929370"></script>
+    <script src="code.js?ts=1752110623"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

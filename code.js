@@ -1056,6 +1056,17 @@ function updateVisibility() {
     const specialVehicles = document.getElementById('specialVehicles');
     const specialVehiclesDetailsContainer = document.getElementById('specialVehiclesDetailsContainer');
     specialVehiclesDetailsContainer.style.display = specialVehicles.value === 'Yes — Other' ? 'block' : 'none';
+
+    // Housing Situation "Other" logic (prioritized)
+    const housingSituation = document.getElementById('housingSituation');
+    const housingSituationDetailsContainer = document.getElementById('housingSituationDetailsContainer');
+    if (housingSituation && housingSituationDetailsContainer) {
+        if (housingSituation.value === 'Other') {
+            housingSituationDetailsContainer.style.display = '';
+        } else {
+            housingSituationDetailsContainer.style.display = 'none';
+        }
+    }
 }
 
 // Attach event listeners for interaction
@@ -1068,6 +1079,8 @@ function attachVisibilityListeners() {
     document.getElementById('employmentStatus').addEventListener('change', updateVisibility);
     document.getElementById('businessActivity').addEventListener('change', updateVisibility);
     document.getElementById('specialVehicles').addEventListener('change', updateVisibility);
+    // Add housingSituation event listener
+    document.getElementById('housingSituation').addEventListener('change', updateVisibility);
 }
 
 // Initialize visibility logic on page load
@@ -1124,6 +1137,8 @@ function submitApplication() {
         pets: document.getElementById('pets').value,
         petDetails: document.getElementById('petDetails').value || null,
         housingSituation: document.getElementById('housingSituation').value,
+        // Add housingSituationDetails to the data sent
+        housingSituationDetails: document.getElementById('housingSituationDetails').value || null,
         residenceDuration: document.getElementById('residenceDuration').value,
         reasonForMoving: document.getElementById('reasonForMoving').value || null,
         privateLandlord: document.getElementById('privateLandlord').value,
