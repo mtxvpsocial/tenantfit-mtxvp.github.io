@@ -658,39 +658,44 @@ function showCandidateDetailsScreen(candidateId) {
                 });
 
                 // Show/hide details based on candidate data
-                if (candidate.petDetails) {
+                // Accept both petDetails and petdetails
+                if (candidate.petdetails) {
                     const petDetailsItem = node.querySelector('.pet-details-item');
                     if (petDetailsItem) petDetailsItem.style.display = '';
                 }
-                if (candidate.specialVehiclesDetails) {
+                if (candidate.housingSituationDetails) {
+                    const housingSituationDetailsItem = node.querySelector('.housing-situation-details-item');
+                    if (housingSituationDetailsItem) housingSituationDetailsItem.style.display = '';
+                }
+                if (candidate.specialVehiclesDetails || candidate.specialvehiclesdetails) {
                     const specialVehiclesDetailsItem = node.querySelector('.special-vehicles-details-item');
                     if (specialVehiclesDetailsItem) specialVehiclesDetailsItem.style.display = '';
                 }
-                if (candidate.privateLandlord === 'Yes') {
+                if (candidate.privateLandlord === 'Yes' || candidate.privatelandlord === 'Yes') {
                     const rentalUnitsItem = node.querySelector('.rental-units-item');
                     if (rentalUnitsItem) rentalUnitsItem.style.display = '';
                 }
-                if (candidate.rentDifficulty) {
+                if (candidate.rentDifficulty || candidate.rentdifficulty) {
                     const rentDifficultyItem = node.querySelector('.rent-difficulty-item');
                     if (rentDifficultyItem) rentDifficultyItem.style.display = '';
                 }
-                if (candidate.rentDifficultyDetails) {
+                if (candidate.rentDifficultyDetails || candidate.rentdifficultydetails) {
                     const rentDifficultyDetailsItem = node.querySelector('.rent-difficulty-details-item');
                     if (rentDifficultyDetailsItem) rentDifficultyDetailsItem.style.display = '';
                 }
-                if (candidate.tenancyNotice) {
+                if (candidate.tenancyNotice || candidate.tenancynotice) {
                     const tenancyNoticeItem = node.querySelector('.tenancy-notice-item');
                     if (tenancyNoticeItem) tenancyNoticeItem.style.display = '';
                 }
-                if (candidate.tenancyNoticeDetails) {
+                if (candidate.tenancyNoticeDetails || candidate.tenancynoticedetails) {
                     const tenancyNoticeDetailsItem = node.querySelector('.tenancy-notice-details-item');
                     if (tenancyNoticeDetailsItem) tenancyNoticeDetailsItem.style.display = '';
                 }
-                if (candidate.rentalDispute) {
+                if (candidate.rentalDispute || candidate.rentaldispute) {
                     const rentalDisputeItem = node.querySelector('.rental-dispute-item');
                     if (rentalDisputeItem) rentalDisputeItem.style.display = '';
                 }
-                if (candidate.rentalDisputeDetails) {
+                if (candidate.rentalDisputeDetails || candidate.rentaldisputedetails) {
                     const rentalDisputeDetailsItem = node.querySelector('.rental-dispute-details-item');
                     if (rentalDisputeDetailsItem) rentalDisputeDetailsItem.style.display = '';
                 }
@@ -698,11 +703,11 @@ function showCandidateDetailsScreen(candidateId) {
                     const professionItem = node.querySelector('.profession-item');
                     if (professionItem) professionItem.style.display = '';
                 }
-                if (candidate.employmentDuration) {
+                if (candidate.employmentDuration || candidate.employmentduration) {
                     const employmentDurationItem = node.querySelector('.employment-duration-item');
                     if (employmentDurationItem) employmentDurationItem.style.display = '';
                 }
-                if (candidate.businessActivityDetails) {
+                if (candidate.businessActivityDetails || candidate.businessactivitydetails) {
                     const businessActivityDetailsItem = node.querySelector('.business-activity-details-item');
                     if (businessActivityDetailsItem) businessActivityDetailsItem.style.display = '';
                 }
