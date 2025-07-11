@@ -633,8 +633,8 @@ function showCandidateDetailsScreen(candidateId) {
                 // Helper for boolean display
                 function boolDisplay(val) {
                     if (typeof val === 'boolean') return val ? 'Yes' : 'No';
-                    if (val === true || val === 'true' || val === 'Yes') return 'Yes';
-                    if (val === false || val === 'false' || val === 'No') return 'No';
+                    if (val === true || val === 'true' || val === 'Yes' || val === 1) return 'Yes';
+                    if (val === false || val === 'false' || val === 'No' || val === 0) return 'No';
                     return val || 'N/A';
                 }
 
@@ -644,21 +644,16 @@ function showCandidateDetailsScreen(candidateId) {
                     let val = candidate[field];
 
                     // Special handling for booleans and checkboxes
-                    if (['declaration1', 'declaration2', 'consentContact', 'consentNews'].includes(field)) {
+                    if (['declaration1', 'declaration2', 'consentcontact', 'consentnews'].includes(field)) {
                         el.textContent = boolDisplay(val);
                     } else if (field === 'pets' && !val) {
                         el.textContent = 'No';
-                    } else if (field === 'moveInDate' && !val && candidate.moveindate) {
-                        el.textContent = candidate.moveindate;
-                    } else if (field === 'applicationDate' && !val && candidate.applicationdate) {
-                        el.textContent = candidate.applicationdate;
                     } else {
                         el.textContent = val || 'N/A';
                     }
                 });
 
                 // Show/hide details based on candidate data
-                // Accept both petDetails and petdetails
                 if (candidate.petdetails) {
                     const petDetailsItem = node.querySelector('.pet-details-item');
                     if (petDetailsItem) petDetailsItem.style.display = '';
@@ -667,35 +662,35 @@ function showCandidateDetailsScreen(candidateId) {
                     const housingSituationDetailsItem = node.querySelector('.housing-situation-details-item');
                     if (housingSituationDetailsItem) housingSituationDetailsItem.style.display = '';
                 }
-                if (candidate.specialVehiclesDetails || candidate.specialvehiclesdetails) {
+                if (candidate.specialVehiclesDetails) {
                     const specialVehiclesDetailsItem = node.querySelector('.special-vehicles-details-item');
                     if (specialVehiclesDetailsItem) specialVehiclesDetailsItem.style.display = '';
                 }
-                if (candidate.privateLandlord === 'Yes' || candidate.privatelandlord === 'Yes') {
+                if (candidate.privateLandlord === 'Yes') {
                     const rentalUnitsItem = node.querySelector('.rental-units-item');
                     if (rentalUnitsItem) rentalUnitsItem.style.display = '';
                 }
-                if (candidate.rentDifficulty || candidate.rentdifficulty) {
+                if (candidate.rentDifficulty) {
                     const rentDifficultyItem = node.querySelector('.rent-difficulty-item');
                     if (rentDifficultyItem) rentDifficultyItem.style.display = '';
                 }
-                if (candidate.rentDifficultyDetails || candidate.rentdifficultydetails) {
+                if (candidate.rentDifficultyDetails) {
                     const rentDifficultyDetailsItem = node.querySelector('.rent-difficulty-details-item');
                     if (rentDifficultyDetailsItem) rentDifficultyDetailsItem.style.display = '';
                 }
-                if (candidate.tenancyNotice || candidate.tenancynotice) {
+                if (candidate.tenancyNotice) {
                     const tenancyNoticeItem = node.querySelector('.tenancy-notice-item');
                     if (tenancyNoticeItem) tenancyNoticeItem.style.display = '';
                 }
-                if (candidate.tenancyNoticeDetails || candidate.tenancynoticedetails) {
+                if (candidate.tenancyNoticeDetails) {
                     const tenancyNoticeDetailsItem = node.querySelector('.tenancy-notice-details-item');
                     if (tenancyNoticeDetailsItem) tenancyNoticeDetailsItem.style.display = '';
                 }
-                if (candidate.rentalDispute || candidate.rentaldispute) {
+                if (candidate.rentalDispute) {
                     const rentalDisputeItem = node.querySelector('.rental-dispute-item');
                     if (rentalDisputeItem) rentalDisputeItem.style.display = '';
                 }
-                if (candidate.rentalDisputeDetails || candidate.rentaldisputedetails) {
+                if (candidate.rentalDisputeDetails) {
                     const rentalDisputeDetailsItem = node.querySelector('.rental-dispute-details-item');
                     if (rentalDisputeDetailsItem) rentalDisputeDetailsItem.style.display = '';
                 }
@@ -703,11 +698,11 @@ function showCandidateDetailsScreen(candidateId) {
                     const professionItem = node.querySelector('.profession-item');
                     if (professionItem) professionItem.style.display = '';
                 }
-                if (candidate.employmentDuration || candidate.employmentduration) {
+                if (candidate.employmentDuration) {
                     const employmentDurationItem = node.querySelector('.employment-duration-item');
                     if (employmentDurationItem) employmentDurationItem.style.display = '';
                 }
-                if (candidate.businessActivityDetails || candidate.businessactivitydetails) {
+                if (candidate.businessActivityDetails) {
                     const businessActivityDetailsItem = node.querySelector('.business-activity-details-item');
                     if (businessActivityDetailsItem) businessActivityDetailsItem.style.display = '';
                 }
@@ -1142,7 +1137,6 @@ function submitApplication() {
         pets: document.getElementById('pets').value,
         petDetails: document.getElementById('petDetails').value || null,
         housingSituation: document.getElementById('housingSituation').value,
-        // Add housingSituationDetails to the data sent
         housingSituationDetails: document.getElementById('housingSituationDetails').value || null,
         residenceDuration: document.getElementById('residenceDuration').value,
         reasonForMoving: document.getElementById('reasonForMoving').value || null,
