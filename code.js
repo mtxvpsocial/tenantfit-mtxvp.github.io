@@ -65,6 +65,7 @@ function register() {
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
     const termsCheck = document.getElementById('termsCheck').checked;
+    const newsCheck = document.getElementById('newsConsentCheck').checked;
 
     // Client-side validation
     if (!email || !password || !confirmPassword || !termsCheck || password !== confirmPassword) {
@@ -84,7 +85,7 @@ function register() {
     fetch(baseUrl + '/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password, termsCheck, newsCheck })
     })
     .then(response => response.json())
     .then(data => {
@@ -297,6 +298,9 @@ function showAddPropertyScreen(editId = null) {
     document.getElementById('addPropertyForm').classList.remove('was-validated');
     document.getElementById('savePropertyButton').innerHTML = editId ? 'Update' : 'Add';
     document.getElementById('property_id').value = editId || '';
+    // Clear new fields
+    document.getElementById('property_bedrooms').value = '';
+    document.getElementById('property_parking').value = '';
     if (editId) {
         showOverlay();
         fetch(baseUrl + `/get-property?id=${encodeURIComponent(editId)}`, {
@@ -314,6 +318,8 @@ function showAddPropertyScreen(editId = null) {
                     document.getElementById('property_link').value = prop.link || '';
                     document.getElementById('property_availability').value = prop.availability ? prop.availability.slice(0, 10) : '';
                     document.getElementById('property_rent').value = prop.rent || '';
+                    document.getElementById('property_bedrooms').value = prop.bedrooms || '';
+                    document.getElementById('property_parking').value = prop.parking || '';
                 } else {
                     showAlert(data.message || 'Failed to load property details.', 'danger');
                 }
@@ -360,10 +366,22 @@ function saveProperty() {
     const link = document.getElementById('property_link').value;
     const availability = document.getElementById('property_availability').value;
     const rent = document.getElementById('property_rent').value;
+    const bedrooms = document.getElementById('property_bedrooms').value;
+    const parking = document.getElementById('property_parking').value;
 
     // Validate required fields
-    if (!address || !description || !availability || !rent) {
+    if (!address || !description || !availability || !rent || !bedrooms || !parking) {
         document.getElementById('addPropertyForm').classList.add('was-validated');
+        return;
+    }
+
+    if (!/^\d+$/.test(bedrooms.trim()) || parseInt(bedrooms, 10) < 0) {
+        showAlert('Please provide number of bedrooms.', 'danger');
+        return;
+
+    }
+    if (!/^\d+$/.test(parking.trim()) || parseInt(parking, 10) < 0) {
+        showAlert('Please provide number of parking spaces.', 'danger');
         return;
     }
 
@@ -394,7 +412,9 @@ function saveProperty() {
             description,
             link,
             availability,
-            rent
+            rent,
+            bedrooms,
+            parking
         })
     })
     .then(response => response.json())
